@@ -1,0 +1,2711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurelia & Maximillian // The Wedding Celebration</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- Icons & GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <style>
+    /* DESIGN SYSTEM */
+    :root {
+      --color-bg: #07070a;
+      --color-card-bg: rgba(15, 14, 18, 0.6);
+      --color-card-border: rgba(212, 175, 55, 0.12);
+      --color-text-primary: #f5f2eb;
+      --color-text-secondary: rgba(245, 242, 235, 0.7);
+      
+      /* Dynamic properties customized by Admin */
+      --color-accent: #d4af37; /* Champagne Gold */
+      --color-accent-rgb: 212, 175, 55;
+      --color-accent-secondary: #c5a880; /* Rose Gold/Ivory */
+      --color-accent-secondary-rgb: 197, 168, 128;
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --border-glow-intensity: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-accent) var(--color-bg);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-accent);
+      border-radius: 3px;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Ambient Particle Canvas Background */
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Grid Overlay */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: 100px 100px;
+      background-image: 
+        linear-gradient(to right, rgba(212, 175, 55, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(212, 175, 55, 0.015) 1px, transparent 1px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Radial glow overlay */
+    .ambient-glow {
+      position: fixed;
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, rgba(var(--color-accent-rgb), 0.06) 0%, transparent 70%);
+      top: -20%;
+      left: -10%;
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(100px);
+    }
+    .ambient-glow-2 {
+      position: fixed;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(var(--color-accent-secondary-rgb), 0.04) 0%, transparent 70%);
+      bottom: -10%;
+      right: -10%;
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(100px);
+    }
+
+    /* Shared Glassmorphism styles */
+    .glass-card {
+      background: var(--color-card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--color-card-border);
+      border-radius: 20px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(var(--color-accent-rgb), 0.4);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 var(--border-glow-intensity) rgba(var(--color-accent-rgb), 0.15);
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, .brand-logo {
+      font-family: var(--font-display);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    p {
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #f5f2eb 40%, var(--color-accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* CTA / Premium Button */
+    .btn-premium {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 40px;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(var(--color-accent-rgb), 0.4);
+      background: rgba(var(--color-accent-rgb), 0.08);
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .btn-premium::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .btn-premium:hover::before {
+      left: 100%;
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-2px);
+      background: rgba(var(--color-accent-rgb), 0.2);
+      box-shadow: 0 0 25px rgba(var(--color-accent-rgb), 0.3);
+      border-color: rgba(var(--color-accent-rgb), 0.8);
+    }
+
+    /* TAP TO ENTER COVER SPLASH */
+    #splash-cover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #060608;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #splash-cover.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.05);
+    }
+
+    .splash-logo {
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      position: relative;
+      text-align: center;
+      line-height: 1.4;
+      animation: pulseGlow 4s infinite ease-in-out;
+    }
+
+    .splash-prompt {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      animation: flashPrompt 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { text-shadow: 0 0 15px rgba(var(--color-accent-rgb), 0.2); }
+      50% { text-shadow: 0 0 35px rgba(var(--color-accent-rgb), 0.6), 0 0 10px rgba(var(--color-accent-secondary-rgb), 0.4); }
+    }
+
+    @keyframes flashPrompt {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* MAIN CONTAINER */
+    #main-content {
+      position: relative;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #main-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* HEADER & NAV */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 900;
+      background: linear-gradient(to bottom, rgba(7, 7, 10, 0.8) 0%, transparent 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.05);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border: 1px solid var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px rgba(var(--color-accent-rgb), 0.3);
+    }
+
+    .logo-mark-inner {
+      width: 10px;
+      height: 10px;
+      background-color: var(--color-accent-secondary);
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .control-btn:hover {
+      background: rgba(var(--color-accent-rgb), 0.15);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 12px rgba(var(--color-accent-rgb), 0.3);
+    }
+
+    /* SECTION LAYOUTS */
+    section {
+      padding: 120px 8% 80px 8%;
+      position: relative;
+    }
+
+    /* HERO SECTION */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 160px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-weight: 500;
+      color: var(--color-accent-secondary);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      line-height: 1.15;
+      margin-bottom: 32px;
+      max-width: 1000px;
+      font-weight: 400;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin-bottom: 48px;
+      letter-spacing: 0.02em;
+    }
+
+    /* SCRATCH CARD SECTION */
+    #scratch-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 8%;
+      background: linear-gradient(180deg, transparent, rgba(var(--color-accent-rgb), 0.02), transparent);
+    }
+
+    .scratch-wrapper {
+      position: relative;
+      width: 480px;
+      height: 160px;
+      max-width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(var(--color-accent-rgb), 0.2);
+    }
+
+    .scratch-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 14, 18, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      user-select: none;
+      z-index: 1;
+    }
+
+    .scratch-date-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      color: #fff;
+      text-shadow: 0 0 10px rgba(var(--color-accent-rgb), 0.5);
+      margin-bottom: 6px;
+    }
+
+    .scratch-details-text {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--color-accent-secondary);
+      text-transform: uppercase;
+    }
+
+    #scratch-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      cursor: crosshair;
+      touch-action: none;
+      transition: opacity 0.5s ease;
+    }
+
+    #scratch-canvas.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* COUNTDOWN SECTION */
+    #countdown-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-body);
+      color: var(--color-accent-secondary);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .countdown-container {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .countdown-card {
+      width: 130px;
+      height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .countdown-val {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      font-weight: 400;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 0 15px rgba(var(--color-accent-rgb), 0.4);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .countdown-card.flip .countdown-val {
+      transform: rotateX(360deg);
+    }
+
+    .countdown-lbl {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-top: 12px;
+    }
+
+    /* ABOUT BENTO SECTION */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .bento-card {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .bento-card-action-bar {
+      margin-top: 24px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 12px;
+    }
+
+    .bento-icon-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(var(--color-accent-rgb), 0.1);
+      border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1.05rem;
+    }
+
+    .bento-icon-btn:hover {
+      background: var(--color-accent);
+      color: #000;
+      box-shadow: 0 0 15px rgba(var(--color-accent-rgb), 0.4);
+      transform: translateY(-2px);
+    }
+
+    .bento-col-4 { grid-column: span 4; }
+    .bento-col-8 { grid-column: span 8; }
+    .bento-col-6 { grid-column: span 6; }
+    .bento-col-12 { grid-column: span 12; }
+
+    .bento-title {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .bento-icon {
+      font-size: 1.8rem;
+      color: var(--color-accent-secondary);
+      margin-bottom: 24px;
+      text-shadow: 0 0 12px rgba(var(--color-accent-secondary-rgb), 0.3);
+    }
+
+    /* FEATURES GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-accent-secondary));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon-wrapper {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(var(--color-accent-rgb), 0.08);
+      border: 1px solid rgba(var(--color-accent-rgb), 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--color-accent-secondary);
+      margin-bottom: 28px;
+    }
+
+    /* GALLERY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      height: 380px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gallery-item:hover .gallery-image {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(7, 7, 10, 0.95) 0%, transparent 70%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-title {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .gallery-category {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: var(--color-accent-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* TIMELINE SECTION */
+    .timeline-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--color-accent) 0%, rgba(var(--color-accent-secondary-rgb), 0.15) 100%);
+    }
+
+    .timeline-node {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 50%;
+      position: relative;
+      margin-bottom: 60px;
+    }
+
+    .timeline-node:nth-child(even) {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: 50%;
+    }
+
+    .timeline-marker {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-accent-secondary);
+      border: 3px solid var(--color-bg);
+      position: absolute;
+      left: 50%;
+      top: 24px;
+      transform: translateX(-50%);
+      z-index: 10;
+      box-shadow: 0 0 8px var(--color-accent-secondary);
+    }
+
+    .timeline-content {
+      width: 90%;
+      padding: 30px;
+      position: relative;
+    }
+
+    .timeline-node:nth-child(even) .timeline-content {
+      margin-left: auto;
+    }
+
+    .timeline-time {
+      font-family: var(--font-display);
+      color: var(--color-accent-secondary);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .timeline-heading {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* CTA SECTION */
+    #cta {
+      text-align: center;
+      padding: 140px 8%;
+    }
+
+    .cta-card {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at top right, rgba(var(--color-accent-rgb), 0.08) 0%, transparent 60%);
+    }
+
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    .cta-desc {
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+    }
+
+    .cta-form {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .cta-input {
+      flex: 1;
+      padding: 16px 24px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      outline: none;
+      transition: all 0.3s ease;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .cta-input:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 15px rgba(var(--color-accent-rgb), 0.15);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(212, 175, 55, 0.05);
+      padding: 60px 8%;
+      text-align: center;
+      background: #040406;
+      position: relative;
+      z-index: 10;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      background: rgba(var(--color-accent-rgb), 0.1);
+      border-color: var(--color-accent);
+      color: #fff;
+    }
+
+    .footer-copyright {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+    }
+
+    /* IMAGE LIGHTBOX MODAL */
+    #lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(6, 6, 8, 0.96);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    #lightbox-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #lightbox-img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(var(--color-accent-rgb), 0.2);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    #lightbox-close:hover {
+      opacity: 1;
+    }
+
+    /* TOAST NOTIFICATION CONTAINER */
+    #toast-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .toast {
+      padding: 16px 28px;
+      background: rgba(15, 14, 18, 0.95);
+      border-left: 4px solid var(--color-accent-secondary);
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateY(50px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ADMIN PANEL DRAWER OVERLAY */
+    #admin-panel {
+      position: fixed;
+      top: 0;
+      right: -450px;
+      width: 450px;
+      height: 100vh;
+      background: rgba(12, 11, 15, 0.98);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-left: 1px solid rgba(212, 175, 55, 0.1);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #fff;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    #admin-panel.active {
+      right: 0;
+    }
+
+    .admin-header {
+      padding: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-header h2 {
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      color: var(--color-accent);
+    }
+
+    .admin-close {
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .admin-close:hover {
+      opacity: 1;
+    }
+
+    .admin-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-tab {
+      flex: 1;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.01);
+      transition: all 0.3s ease;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid transparent;
+      color: var(--color-text-secondary);
+    }
+
+    .admin-tab.active {
+      background: rgba(var(--color-accent-rgb), 0.08);
+      color: #fff;
+      border-color: var(--color-accent);
+    }
+
+    .admin-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .admin-section {
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+    }
+
+    .admin-group {
+      margin-bottom: 24px;
+    }
+
+    .admin-group label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .admin-group input[type="text"],
+    .admin-group input[type="datetime-local"],
+    .admin-group select,
+    .admin-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 8px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.3s ease;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .admin-group input:focus,
+    .admin-group select:focus,
+    .admin-group textarea:focus {
+      border-color: var(--color-accent);
+    }
+
+    .admin-group input[type="color"] {
+      width: 100%;
+      height: 40px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .admin-toggle-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .admin-toggle-label {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.08);
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--color-accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    .admin-footer {
+      padding: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      gap: 16px;
+    }
+
+    .admin-btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .admin-btn-save {
+      background: var(--color-accent);
+      color: #000;
+    }
+
+    .admin-btn-save:hover {
+      box-shadow: 0 0 15px var(--color-accent);
+      transform: translateY(-1px);
+    }
+
+    .admin-btn-reset {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .admin-btn-reset:hover {
+      background: rgba(255, 50, 50, 0.1);
+      border-color: rgba(255, 50, 50, 0.4);
+    }
+
+    /* REPEATER ITEM MANAGER */
+    .repeater-item-row {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .repeater-remove-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      color: rgba(255, 50, 50, 0.8);
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .repeater-remove-btn:hover {
+      color: #ff3232;
+    }
+
+    .repeater-add-btn {
+      background: rgba(var(--color-accent-rgb), 0.05);
+      border: 1px dashed rgba(var(--color-accent-rgb), 0.3);
+      color: #fff;
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .repeater-add-btn:hover {
+      background: rgba(var(--color-accent-rgb), 0.15);
+    }
+
+    .repeater-item-row .admin-group {
+      margin-bottom: 12px;
+    }
+
+    /* Responsive Timeline/Scratch Fixes */
+    @media (max-width: 768px) {
+      .timeline-container::before {
+        left: 20px;
+      }
+      .timeline-node {
+        padding-right: 0;
+        padding-left: 40px;
+        justify-content: flex-start;
+      }
+      .timeline-node:nth-child(even) {
+        padding-left: 40px;
+      }
+      .timeline-marker {
+        left: 20px;
+      }
+      .bento-col-4, .bento-col-8, .bento-col-6 {
+        grid-column: span 12;
+      }
+      header {
+        padding: 16px 4%;
+      }
+      #admin-panel {
+        width: 100%;
+        right: -100%;
+      }
+      .scratch-wrapper {
+        width: 100%;
+        height: 140px;
+      }
+      .bento-card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+
+  <!-- BACKGROUND GRID & STARFIELD -->
+  <canvas id="ambient-canvas"></canvas>
+  <div class="grid-overlay"></div>
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- SPLASH COVER -->
+  <div id="splash-cover" onclick="revealLandingPage()">
+    <div class="splash-logo gradient-text">AURELIA & MAXIMILLIAN</div>
+    <div class="splash-prompt">Tap to Open Invitation</div>
+  </div>
+
+  <!-- MAIN WEBSITE CONTENT -->
+  <div id="main-content">
+    
+    <!-- HEADER -->
+    <header>
+      <div class="logo-container" onclick="handleLogoClick()">
+        <div class="logo-mark">
+          <div class="logo-mark-inner"></div>
+        </div>
+        <span class="logo-text gradient-text" id="logoText">A&M</span>
+      </div>
+      <div class="nav-controls">
+        <button class="control-btn" id="musicBtn" onclick="toggleAmbientMusic()" title="Toggle ambient music generator">
+          <i class="fa-solid fa-volume-xmark"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+      <div class="hero-eyebrow" id="heroEyebrow">YOU ARE CORDIALLY INVITED</div>
+      <h1 class="hero-title gradient-text" id="heroTitle">Aurelia & Maximillian</h1>
+      <p class="hero-desc" id="heroDesc">To celebrate our union of marriage on the eighteenth of December, two thousand twenty-six. A weekend of romance, fine dining, and beautiful moments.</p>
+      <a href="#scratch-section" class="btn-premium" id="heroCtaText">Reveal the Date</a>
+    </section>
+
+    <!-- SCRATCH CARD TO REVEAL DATE -->
+    <section id="scratch-section">
+      <div class="section-header">
+        <h2 class="section-title gradient-text" id="scratchTitle">A Hidden Moment</h2>
+        <p class="section-subtitle" id="scratchSubtitle">Scratch Card to Unveil the Event Date</p>
+      </div>
+      <div class="scratch-wrapper">
+        <div class="scratch-background">
+          <div class="scratch-date-text" id="scratchDateText">December 18, 2026</div>
+          <div class="scratch-details-text" id="scratchDetailsText">The Grand Chateau // 4:00 PM</div>
+        </div>
+        <canvas id="scratch-canvas"></canvas>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN TIMER -->
+    <section id="countdown-section">
+      <div class="section-header">
+        <h2 class="section-title gradient-text" id="countdownTitle">Counting Down to Forever</h2>
+        <p class="section-subtitle" id="countdownSubtitle">Time Remaining Until the Vows</p>
+      </div>
+      <div class="countdown-container">
+        <div class="countdown-card glass-card" id="cardDays">
+          <span class="countdown-val">00</span>
+          <span class="countdown-lbl">Days</span>
+        </div>
+        <div class="countdown-card glass-card" id="cardHours">
+          <span class="countdown-val">00</span>
+          <span class="countdown-lbl">Hours</span>
+        </div>
+        <div class="countdown-card glass-card" id="cardMinutes">
+          <span class="countdown-val">00</span>
+          <span class="countdown-lbl">Minutes</span>
+        </div>
+        <div class="countdown-card glass-card" id="cardSeconds">
+          <span class="countdown-val">00</span>
+          <span class="countdown-lbl">Seconds</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION (BENTO GRID) -->
+    <section id="about">
+      <div class="section-header">
+        <h2 class="section-title gradient-text" id="aboutTitle">The Celebration Details</h2>
+        <p class="section-subtitle" id="aboutSubtitle">Essential Information</p>
+      </div>
+      <div class="bento-grid" id="aboutBentoContainer">
+        <!-- Dynamically rendered via JS -->
+      </div>
+    </section>
+
+    <!-- FEATURES SECTION (REGISTRY / LOGISTICS) -->
+    <section id="features">
+      <div class="section-header">
+        <h2 class="section-title gradient-text" id="featuresTitle">Guest Accommodations</h2>
+        <p class="section-subtitle" id="featuresSubtitle">Registry & Logistics</p>
+      </div>
+      <div class="features-grid" id="featuresGridContainer">
+        <!-- Dynamically rendered via JS -->
+      </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section id="gallery">
+      <div class="section-header">
+        <h2 class="section-title gradient-text" id="galleryTitle">Our Story in Frames</h2>
+        <p class="section-subtitle" id="gallerySubtitle">A Love Story Visualized</p>
+      </div>
+      <div class="gallery-grid" id="galleryGridContainer">
+        <!-- Dynamically rendered via JS -->
+      </div>
+    </section>
+
+    <!-- TIMELINE SECTION -->
+    <section id="timeline">
+      <div class="section-header">
+        <h2 class="section-title gradient-text" id="timelineTitle">The Wedding Day</h2>
+        <p class="section-subtitle" id="timelineSubtitle">Schedule of Events</p>
+      </div>
+      <div class="timeline-container" id="timelineContainer">
+        <!-- Dynamically rendered via JS -->
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION (RSVP) -->
+    <section id="cta">
+      <div class="cta-card glass-card">
+        <h2 class="cta-title gradient-text" id="ctaTitle">Kindly Respond</h2>
+        <p class="cta-desc" id="ctaDesc">Please RSVP by October 1st, 2026. Let us know your attendance and dietary selections below.</p>
+        <form class="cta-form" onsubmit="handleCtaSubmit(event)">
+          <input type="email" class="cta-input" placeholder="Enter guest email address..." required>
+          <button type="submit" class="btn-premium" id="ctaBtnText">RSVP Attendance</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="social-links" id="socialLinksContainer">
+        <!-- Dynamically rendered via JS -->
+      </div>
+      <p class="footer-copyright" id="footerText">&copy; 2026 AURELIA & MAXIMILLIAN. MADE WITH ELEGANCE.</p>
+    </footer>
+
+  </div>
+
+  <!-- LIGHTBOX MODAL -->
+  <div id="lightbox-modal" onclick="closeLightbox()">
+    <i class="fa-solid fa-xmark" id="lightbox-close"></i>
+    <img id="lightbox-img" src="" alt="Concept Preview">
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- ADMIN PANEL OVERLAY -->
+  <div id="admin-panel">
+    <div class="admin-header">
+      <h2>INVITATION // DESIGN</h2>
+      <i class="fa-solid fa-xmark admin-close" onclick="closeAdmin()"></i>
+    </div>
+    
+    <div class="admin-tabs">
+      <div class="admin-tab active" onclick="switchAdminTab('style')">Styling</div>
+      <div class="admin-tab" onclick="switchAdminTab('sections')">Visibility</div>
+      <div class="admin-tab" onclick="switchAdminTab('content')">Content</div>
+    </div>
+
+    <div class="admin-content">
+      <!-- STYLING TAB -->
+      <div class="admin-section active" id="admin-tab-style">
+        <div class="admin-group">
+          <label>Primary Theme Accent</label>
+          <input type="color" id="adminAccentColor" oninput="applyStylesLive()">
+        </div>
+        <div class="admin-group">
+          <label>Secondary Accent Color</label>
+          <input type="color" id="adminAccentSecondary" oninput="applyStylesLive()">
+        </div>
+        <div class="admin-group">
+          <label>Display Header Font</label>
+          <select id="adminFontDisplay" onchange="applyStylesLive()">
+            <option value="'Cinzel', serif">Cinzel (Classical Elegant)</option>
+            <option value="'Playfair Display', serif">Playfair Display (Premium Serif)</option>
+            <option value="'Plus Jakarta Sans', sans-serif">Jakarta Sans (Luxury Modern)</option>
+          </select>
+        </div>
+        <div class="admin-group">
+          <label>Card Shadow / Glow Glow Radius</label>
+          <select id="adminGlowRadius" onchange="applyStylesLive()">
+            <option value="4px">Subtle Glow</option>
+            <option value="10px">Elegant Ambient Glow</option>
+            <option value="25px">Intense Royal Glow</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- SECTIONS TAB -->
+      <div class="admin-section" id="admin-tab-sections">
+        <div class="admin-toggle-wrapper">
+          <span class="admin-toggle-label">Hero Section</span>
+          <label class="switch">
+            <input type="checkbox" id="toggleHero" onchange="applySectionsLive()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="admin-toggle-wrapper">
+          <span class="admin-toggle-label">Scratch Date Section</span>
+          <label class="switch">
+            <input type="checkbox" id="toggleScratch" onchange="applySectionsLive()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="admin-toggle-wrapper">
+          <span class="admin-toggle-label">Countdown Section</span>
+          <label class="switch">
+            <input type="checkbox" id="toggleCountdown" onchange="applySectionsLive()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="admin-toggle-wrapper">
+          <span class="admin-toggle-label">About Bento Grid</span>
+          <label class="switch">
+            <input type="checkbox" id="toggleAbout" onchange="applySectionsLive()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="admin-toggle-wrapper">
+          <span class="admin-toggle-label">Feature Matrix</span>
+          <label class="switch">
+            <input type="checkbox" id="toggleFeatures" onchange="applySectionsLive()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="admin-toggle-wrapper">
+          <span class="admin-toggle-label">Gallery Concept Portal</span>
+          <label class="switch">
+            <input type="checkbox" id="toggleGallery" onchange="applySectionsLive()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="admin-toggle-wrapper">
+          <span class="admin-toggle-label">Chronology Timeline</span>
+          <label class="switch">
+            <input type="checkbox" id="toggleTimeline" onchange="applySectionsLive()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="admin-toggle-wrapper">
+          <span class="admin-toggle-label">CTA Sandbox Portal</span>
+          <label class="switch">
+            <input type="checkbox" id="toggleCTA" onchange="applySectionsLive()">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- CONTENT TAB -->
+      <div class="admin-content-section-selector admin-group">
+        <label>Section Selector</label>
+        <select id="adminContentSectionSelect" onchange="switchContentSection()">
+          <option value="navigation">Navigation & Branding</option>
+          <option value="hero">Hero Section</option>
+          <option value="scratch">Scratch Date</option>
+          <option value="countdown">Countdown target</option>
+          <option value="about">Details (Bento Grid)</option>
+          <option value="features">Accommodations / Registry</option>
+          <option value="gallery">Photo Gallery</option>
+          <option value="timeline">Schedule of Events</option>
+          <option value="cta">RSVP Block</option>
+          <option value="footer">Footer</option>
+        </select>
+      </div>
+
+      <div class="admin-section" id="admin-tab-content">
+        <!-- Navigation edit screen -->
+        <div id="edit-sec-navigation" class="edit-sub-section">
+          <div class="admin-group">
+            <label>Brand Logo Initials</label>
+            <input type="text" id="editLogoText">
+          </div>
+        </div>
+
+        <!-- Hero edit screen -->
+        <div id="edit-sec-hero" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>Eyebrow Label</label>
+            <input type="text" id="editHeroEyebrow">
+          </div>
+          <div class="admin-group">
+            <label>Hero Main Title</label>
+            <input type="text" id="editHeroTitle">
+          </div>
+          <div class="admin-group">
+            <label>Description Paragraph</label>
+            <textarea id="editHeroDesc" rows="3"></textarea>
+          </div>
+          <div class="admin-group">
+            <label>CTA Button Label</label>
+            <input type="text" id="editHeroCtaText">
+          </div>
+        </div>
+
+        <!-- Scratch date edit screen -->
+        <div id="edit-sec-scratch" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>Scratch Title</label>
+            <input type="text" id="editScratchTitle">
+          </div>
+          <div class="admin-group">
+            <label>Subtitle Label</label>
+            <input type="text" id="editScratchSubtitle">
+          </div>
+          <div class="admin-group">
+            <label>Date Text (Revealed)</label>
+            <input type="text" id="editScratchDateText">
+          </div>
+          <div class="admin-group">
+            <label>Details Text (Revealed)</label>
+            <input type="text" id="editScratchDetailsText">
+          </div>
+        </div>
+
+        <!-- Countdown edit screen -->
+        <div id="edit-sec-countdown" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>Countdown Title</label>
+            <input type="text" id="editCountdownTitle">
+          </div>
+          <div class="admin-group">
+            <label>Subtitle Label</label>
+            <input type="text" id="editCountdownSubtitle">
+          </div>
+          <div class="admin-group">
+            <label>Target Date & Time</label>
+            <input type="datetime-local" id="editCountdownTarget">
+          </div>
+        </div>
+
+        <!-- About Bento edit screen -->
+        <div id="edit-sec-about" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>Details Main Title</label>
+            <input type="text" id="editAboutTitle">
+          </div>
+          <div class="admin-group">
+            <label>Subtitle Label</label>
+            <input type="text" id="editAboutSubtitle">
+          </div>
+          <label class="admin-group-label" style="font-family:var(--font-body); font-size: 0.75rem; display:block; margin: 15px 0 8px 0; color:var(--color-text-secondary); text-transform:uppercase;">Bento Grid Cards</label>
+          <div id="repeater-about-cards"></div>
+          <button class="repeater-add-btn" onclick="addRepeaterItem('about')">+ Add Bento Card</button>
+        </div>
+
+        <!-- Features edit screen -->
+        <div id="edit-sec-features" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>Accommodations Main Title</label>
+            <input type="text" id="editFeaturesTitle">
+          </div>
+          <div class="admin-group">
+            <label>Subtitle Label</label>
+            <input type="text" id="editFeaturesSubtitle">
+          </div>
+          <label class="admin-group-label" style="font-family:var(--font-body); font-size: 0.75rem; display:block; margin: 15px 0 8px 0; color:var(--color-text-secondary); text-transform:uppercase;">Registry Cards</label>
+          <div id="repeater-features-cards"></div>
+          <button class="repeater-add-btn" onclick="addRepeaterItem('features')">+ Add Registry Card</button>
+        </div>
+
+        <!-- Gallery edit screen -->
+        <div id="edit-sec-gallery" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>Gallery Main Title</label>
+            <input type="text" id="editGalleryTitle">
+          </div>
+          <div class="admin-group">
+            <label>Subtitle Label</label>
+            <input type="text" id="editGallerySubtitle">
+          </div>
+          <label class="admin-group-label" style="font-family:var(--font-body); font-size: 0.75rem; display:block; margin: 15px 0 8px 0; color:var(--color-text-secondary); text-transform:uppercase;">Gallery Portals</label>
+          <div id="repeater-gallery-cards"></div>
+          <button class="repeater-add-btn" onclick="addRepeaterItem('gallery')">+ Add Image Card</button>
+        </div>
+
+        <!-- Timeline edit screen -->
+        <div id="edit-sec-timeline" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>Timeline Title</label>
+            <input type="text" id="editTimelineTitle">
+          </div>
+          <div class="admin-group">
+            <label>Subtitle Label</label>
+            <input type="text" id="editTimelineSubtitle">
+          </div>
+          <label class="admin-group-label" style="font-family:var(--font-body); font-size: 0.75rem; display:block; margin: 15px 0 8px 0; color:var(--color-text-secondary); text-transform:uppercase;">Events Nodes</label>
+          <div id="repeater-timeline-cards"></div>
+          <button class="repeater-add-btn" onclick="addRepeaterItem('timeline')">+ Add Event Node</button>
+        </div>
+
+        <!-- CTA edit screen -->
+        <div id="edit-sec-cta" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>CTA Title</label>
+            <input type="text" id="editCtaTitle">
+          </div>
+          <div class="admin-group">
+            <label>CTA Description</label>
+            <textarea id="editCtaDesc" rows="3"></textarea>
+          </div>
+          <div class="admin-group">
+            <label>Button Label Text</label>
+            <input type="text" id="editCtaBtnText">
+          </div>
+        </div>
+
+        <!-- Footer edit screen -->
+        <div id="edit-sec-footer" class="edit-sub-section" style="display:none;">
+          <div class="admin-group">
+            <label>Copyright Text</label>
+            <input type="text" id="editFooterText">
+          </div>
+          <label class="admin-group-label" style="font-family:var(--font-body); font-size: 0.75rem; display:block; margin: 15px 0 8px 0; color:var(--color-text-secondary); text-transform:uppercase;">Social Profiles</label>
+          <div id="repeater-social-cards"></div>
+          <button class="repeater-add-btn" onclick="addRepeaterItem('social')">+ Add Social Icon</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="admin-footer">
+      <button class="admin-btn admin-btn-reset" onclick="resetConfig()">Reset Defaults</button>
+      <button class="admin-btn admin-btn-save" onclick="saveAdminData()">Save Invitation</button>
+    </div>
+  </div>
+
+  <script>
+    // CODE PROTECTION & DEVTOOLS SECURITY SYSTEM
+    document.addEventListener('keydown', function(e) {
+      // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
+      if (e.keyCode === 123 || 
+          (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || 
+          (e.ctrlKey && e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    /* PAGE CONFIG DATA SYSTEM */
+    const DEFAULT_CONFIG = {
+      styles: {
+        accentColor: '#d4af37',
+        accentSecondary: '#c5a880',
+        fontDisplay: "'Cinzel', serif",
+        glowRadius: '10px'
+      },
+      visibility: {
+        hero: true,
+        scratch: true,
+        countdown: true,
+        about: true,
+        features: true,
+        gallery: true,
+        timeline: true,
+        cta: true
+      },
+      content: {
+        navigation: {
+          logoText: 'A&M'
+        },
+        hero: {
+          eyebrow: 'YOU ARE CORDIALLY INVITED',
+          title: 'Aurelia & Maximillian',
+          desc: 'To celebrate our union of marriage on the eighteenth of December, two thousand twenty-six. A weekend of romance, fine dining, and beautiful moments.',
+          ctaText: 'Reveal the Date'
+        },
+        scratch: {
+          title: 'A Hidden Moment',
+          subtitle: 'Scratch Card to Unveil the Event Date',
+          dateText: 'December 18, 2026',
+          detailsText: 'The Grand Chateau // 4:00 PM'
+        },
+        countdown: {
+          title: 'Counting Down to Forever',
+          subtitle: 'Time Remaining Until the Vows',
+          targetDate: '2026-12-18T16:00:00'
+        },
+        about: {
+          title: 'The Celebration Details',
+          subtitle: 'Essential Information',
+          cards: [
+            { 
+              icon: 'fa-solid fa-place-of-worship', 
+              title: 'The Venue', 
+              desc: 'The Grand Chateau Estate, 100 Royal Canopy Blvd. An architectural masterpiece surrounded by lush valley gardens.', 
+              width: 'bento-col-8',
+              mapUrl: 'https://maps.google.com'
+            },
+            { 
+              icon: 'fa-solid fa-user-tie', 
+              title: 'Dress Code', 
+              desc: 'Formal Black Tie attire. We invite our guests to wear warm champagne, emerald, or rich gold hues.', 
+              width: 'bento-col-4',
+              sampleImage: 'https://images.unsplash.com/photo-1594744803329-e58b31de215f?q=80&w=600&auto=format&fit=crop'
+            },
+            { 
+              icon: 'fa-solid fa-hotel', 
+              title: 'Accommodations', 
+              desc: 'Reserved guest suites at Chateau Mansion. Shuttle services provided between properties.', 
+              width: 'bento-col-4',
+              mapUrl: 'https://maps.google.com'
+            },
+            { 
+              icon: 'fa-solid fa-gift', 
+              title: 'Gift Registry', 
+              desc: 'Your warm presence is our greatest present. For loved ones wishing to contribute, a digital gift registry link is available here.', 
+              width: 'bento-col-8',
+              mapUrl: '#'
+            }
+          ]
+        },
+        features: {
+          title: 'Guest Conveniences',
+          subtitle: 'Registry & Logistics',
+          cards: [
+            { icon: 'fa-solid fa-utensils', title: 'Fine Dining & Banquet', desc: 'A curated multi-course culinary experience designed by Michelin chefs, featuring estate wines.' },
+            { icon: 'fa-solid fa-music', title: 'Harmonious Melodies', desc: 'Live performances by classical harpists followed by electronic orchestra soundscapes in the Ballroom.' },
+            { icon: 'fa-solid fa-route', title: 'Valet & Transports', desc: 'Complimentary private chauffeur service to and from designated regional airport hubs.' }
+          ]
+        },
+        gallery: {
+          title: 'Our Story in Frames',
+          subtitle: 'A Love Story Visualized',
+          cards: [
+            { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop', title: 'The Engagement Meadow', category: 'Autumn Memories' },
+            { image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop', title: 'Lakeside Reflections', category: 'Summer Sanctuary' },
+            { image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop', title: 'A Walk Under Gold Leaves', category: 'Fall Adventure' }
+          ]
+        },
+        timeline: {
+          title: 'The Wedding Day',
+          subtitle: 'Schedule of Events',
+          items: [
+            { time: '16:00 // Ceremony Begins', heading: 'Sacred Vows', desc: 'Join us at the Garden Rotunda as we exchange rings and swear eternal vows.' },
+            { time: '17:00 // Toasting & Apertifs', heading: 'Cocktail Hour', desc: 'Enjoy Champagne selections and handcrafted cocktails on the glass-walled Chateau veranda.' },
+            { time: '18:30 // Reception Banquet', heading: 'The Grand Dinner', desc: 'A seated multi-course dinner paired with vintage harvests followed by reception toasts.' },
+            { time: '21:00 // Dancing & Merriment', heading: 'Late Night Ball', desc: 'Dance under the stars, followed by a sparkling fireworks countdown at midnight.' }
+          ]
+        },
+        cta: {
+          title: 'Kindly Respond',
+          desc: 'Please RSVP by October 1st, 2026. Let us know your attendance and dietary selections below.',
+          ctaBtnText: 'RSVP Attendance'
+        },
+        footer: {
+          copyright: '© 2026 AURELIA & MAXIMILLIAN. MADE WITH ELEGANCE.',
+          socials: [
+            { icon: 'fa-brands fa-pinterest', link: '#' },
+            { icon: 'fa-solid fa-envelope', link: 'mailto:rsvp@aurelia-maximillian.com' },
+            { icon: 'fa-solid fa-location-dot', link: '#' }
+          ]
+        }
+      }
+    };
+
+    let config = JSON.parse(localStorage.getItem('premium_landing_config')) || JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+
+    // Check URL query parameters or hash to trigger admin panel access
+    function checkAdminAccess() {
+      const url = new URL(window.location.href);
+      const isjohnzz = url.pathname.endsWith('/johnzz') || url.pathname.endsWith('johnzz') || url.hash === '#johnzz' || url.searchParams.has('johnzz');
+      
+      if (isjohnzz) {
+        const pass = prompt('AETHERIS SECURITY PROTOCOL\nEnter Admin Access Keyphrase:');
+        // Simple obfuscated validation check to prevent casual password discovery in source code
+        if (pass && btoa(pass) === 'am9obnp6') {
+          openAdmin();
+          showToast('Credentials authorized. Admin panel active.');
+        } else {
+          alert('Access Denied: Invalid Keyphrase');
+          window.location.hash = '';
+          if (url.searchParams.has('johnzz')) {
+            url.searchParams.delete('johnzz');
+            window.history.replaceState({}, document.title, url.pathname);
+          }
+        }
+      }
+    }
+
+    // Logo Click Action (Double check just in case, otherwise disabled by user preference)
+    function handleLogoClick() {
+      // Removed direct trigger logic to prevent unauthorized settings reveal.
+    }
+
+    window.addEventListener('hashchange', checkAdminAccess);
+    window.addEventListener('DOMContentLoaded', checkAdminAccess);
+
+    /* RENDERING ACTIONS */
+    function renderPage() {
+      // 1. Logo
+      document.getElementById('logoText').innerText = config.content.navigation.logoText;
+
+      // 2. Hero Section
+      document.getElementById('heroEyebrow').innerText = config.content.hero.eyebrow;
+      document.getElementById('heroTitle').innerText = config.content.hero.title;
+      document.getElementById('heroDesc').innerText = config.content.hero.desc;
+      document.getElementById('heroCtaText').innerText = config.content.hero.ctaText;
+
+      // 3. Scratch Section
+      document.getElementById('scratchTitle').innerText = config.content.scratch.title;
+      document.getElementById('scratchSubtitle').innerText = config.content.scratch.subtitle;
+      document.getElementById('scratchDateText').innerText = config.content.scratch.dateText;
+      document.getElementById('scratchDetailsText').innerText = config.content.scratch.detailsText;
+
+      // 4. Countdown Section
+      document.getElementById('countdownTitle').innerText = config.content.countdown.title;
+      document.getElementById('countdownSubtitle').innerText = config.content.countdown.subtitle;
+
+      // 5. About Section
+      document.getElementById('aboutTitle').innerText = config.content.about.title;
+      document.getElementById('aboutSubtitle').innerText = config.content.about.subtitle;
+      const bentoContainer = document.getElementById('aboutBentoContainer');
+      bentoContainer.innerHTML = '';
+      config.content.about.cards.forEach(card => {
+        let actionMarkup = '';
+        if (card.mapUrl) {
+          actionMarkup = `
+            <div class="bento-card-action-bar">
+              <a href="${card.mapUrl}" target="_blank" class="bento-icon-btn" title="Open Map Coordinates">
+                <i class="fa-solid fa-map-location-dot"></i>
+              </a>
+            </div>
+          `;
+        } else if (card.sampleImage) {
+          actionMarkup = `
+            <div class="bento-card-action-bar">
+              <button class="bento-icon-btn" onclick="openLightbox('${card.sampleImage}')" title="View Dress Code Board">
+                <i class="fa-solid fa-shirt"></i>
+              </button>
+            </div>
+          `;
+        }
+
+        bentoContainer.innerHTML += `
+          <div class="bento-card glass-card ${card.width || 'bento-col-4'}">
+            <div>
+              <i class="${card.icon} bento-icon"></i>
+              <h3 class="bento-title">${card.title}</h3>
+              <p>${card.desc}</p>
+            </div>
+            ${actionMarkup}
+          </div>
+        `;
+      });
+
+      // 6. Features Section
+      document.getElementById('featuresTitle').innerText = config.content.features.title;
+      document.getElementById('featuresSubtitle').innerText = config.content.features.subtitle;
+      const featuresContainer = document.getElementById('featuresGridContainer');
+      featuresContainer.innerHTML = '';
+      config.content.features.cards.forEach(card => {
+        featuresContainer.innerHTML += `
+          <div class="feature-card glass-card">
+            <div class="feature-icon-wrapper">
+              <i class="${card.icon}"></i>
+            </div>
+            <h3 class="bento-title">${card.title}</h3>
+            <p>${card.desc}</p>
+          </div>
+        `;
+      });
+
+      // 7. Gallery Section
+      document.getElementById('galleryTitle').innerText = config.content.gallery.title;
+      document.getElementById('gallerySubtitle').innerText = config.content.gallery.subtitle;
+      const galleryContainer = document.getElementById('galleryGridContainer');
+      galleryContainer.innerHTML = '';
+      config.content.gallery.cards.forEach(card => {
+        galleryContainer.innerHTML += `
+          <div class="gallery-item" onclick="openLightbox('${card.image}')">
+            <img class="gallery-image" src="${card.image}" alt="${card.title}">
+            <div class="gallery-overlay">
+              <span class="gallery-category">${card.category}</span>
+              <h3 class="gallery-title">${card.title}</h3>
+            </div>
+          </div>
+        `;
+      });
+
+      // 8. Timeline Section
+      document.getElementById('timelineTitle').innerText = config.content.timeline.title;
+      document.getElementById('timelineSubtitle').innerText = config.content.timeline.subtitle;
+      const timelineContainer = document.getElementById('timelineContainer');
+      timelineContainer.innerHTML = '';
+      config.content.timeline.items.forEach(item => {
+        timelineContainer.innerHTML += `
+          <div class="timeline-node">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content glass-card">
+              <div class="timeline-time">${item.time}</div>
+              <h3 class="timeline-heading">${item.heading}</h3>
+              <p>${item.desc}</p>
+            </div>
+          </div>
+        `;
+      });
+
+      // 9. CTA Section
+      document.getElementById('ctaTitle').innerText = config.content.cta.title;
+      document.getElementById('ctaDesc').innerText = config.content.cta.desc;
+      document.getElementById('ctaBtnText').innerText = config.content.cta.ctaBtnText;
+
+      // 10. Footer Section
+      document.getElementById('footerText').innerHTML = config.content.footer.copyright;
+      const socialContainer = document.getElementById('socialLinksContainer');
+      socialContainer.innerHTML = '';
+      config.content.footer.socials.forEach(soc => {
+        socialContainer.innerHTML += `
+          <a href="${soc.link}" class="social-icon">
+            <i class="${soc.icon}"></i>
+          </a>
+        `;
+      });
+
+      applyStyles();
+      applySections();
+      setupScratchCard();
+    }
+
+    /* APPLY DESIGN SYSTEM VARIABLES */
+    function applyStyles() {
+      const root = document.documentElement;
+      root.style.setProperty('--color-accent', config.styles.accentColor);
+      root.style.setProperty('--color-accent-rgb', hexToRgb(config.styles.accentColor));
+      root.style.setProperty('--color-accent-secondary', config.styles.accentSecondary);
+      root.style.setProperty('--color-accent-secondary-rgb', hexToRgb(config.styles.accentSecondary));
+      root.style.setProperty('--font-display', config.styles.fontDisplay);
+      root.style.setProperty('--border-glow-intensity', config.styles.glowRadius);
+    }
+
+    function applySections() {
+      document.getElementById('hero').style.display = config.visibility.hero ? 'flex' : 'none';
+      document.getElementById('scratch-section').style.display = config.visibility.scratch ? 'flex' : 'none';
+      document.getElementById('countdown-section').style.display = config.visibility.countdown ? 'flex' : 'none';
+      document.getElementById('about').style.display = config.visibility.about ? 'block' : 'none';
+      document.getElementById('features').style.display = config.visibility.features ? 'block' : 'none';
+      document.getElementById('gallery').style.display = config.visibility.gallery ? 'block' : 'none';
+      document.getElementById('timeline').style.display = config.visibility.timeline ? 'block' : 'none';
+      document.getElementById('cta').style.display = config.visibility.cta ? 'block' : 'none';
+    }
+
+    function hexToRgb(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) {
+        hex = hex.split('').map(char => char + char).join('');
+      }
+      const num = parseInt(hex, 16);
+      return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
+    }
+
+    /* REVEAL SEQUENCE */
+    function revealLandingPage() {
+      const splash = document.getElementById('splash-cover');
+      const content = document.getElementById('main-content');
+      
+      splash.classList.add('hidden');
+      content.classList.add('visible');
+
+      if (isMusicPlaying) {
+        startSynthesizer();
+      }
+      
+      gsap.from('.hero-eyebrow', { opacity: 0, y: 30, duration: 1.2, delay: 0.5, ease: 'power4.out' });
+      gsap.from('.hero-title', { opacity: 0, y: 40, duration: 1.5, delay: 0.7, ease: 'power4.out' });
+      gsap.from('.hero-desc', { opacity: 0, y: 30, duration: 1.2, delay: 0.9, ease: 'power4.out' });
+      gsap.from('.btn-premium', { opacity: 0, scale: 0.95, duration: 0.9, delay: 1.1, ease: 'back.out(1.5)' });
+      
+      gsap.utils.toArray('.glass-card').forEach(card => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            toggleActions: "play none none none"
+          },
+          opacity: 0,
+          y: 40,
+          duration: 0.8,
+          ease: "power3.out"
+        });
+      });
+    }
+
+    /* SCRATCH CARD MECHANICS */
+    function setupScratchCard() {
+      const canvasScratch = document.getElementById('scratch-canvas');
+      if (!canvasScratch || !config.visibility.scratch) return;
+
+      const scratchCtx = canvasScratch.getContext('2d');
+      const rect = canvasScratch.getBoundingClientRect();
+      
+      const dpr = window.devicePixelRatio || 1;
+      canvasScratch.width = rect.width * dpr;
+      canvasScratch.height = rect.height * dpr;
+      scratchCtx.scale(dpr, dpr);
+
+      const gradient = scratchCtx.createLinearGradient(0, 0, rect.width, rect.height);
+      gradient.addColorStop(0, config.styles.accentColor);
+      gradient.addColorStop(0.5, config.styles.accentSecondary);
+      gradient.addColorStop(1, '#9b7b25');
+      scratchCtx.fillStyle = gradient;
+      scratchCtx.fillRect(0, 0, rect.width, rect.height);
+
+      scratchCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      scratchCtx.lineWidth = 1;
+      for (let i = 0; i < 20; i++) {
+        scratchCtx.beginPath();
+        scratchCtx.moveTo(Math.random() * rect.width, 0);
+        scratchCtx.lineTo(Math.random() * rect.width, rect.height);
+        scratchCtx.stroke();
+      }
+
+      scratchCtx.fillStyle = '#ffffff';
+      scratchCtx.font = `600 0.8rem ${config.styles.fontDisplay}`;
+      scratchCtx.textAlign = 'center';
+      scratchCtx.textBaseline = 'middle';
+      scratchCtx.letterSpacing = '0.2em';
+      scratchCtx.fillText('SCRATCH WITH LOVE', rect.width / 2, rect.height / 2);
+
+      let isDrawing = false;
+
+      function scratch(x, y) {
+        scratchCtx.globalCompositeOperation = 'destination-out';
+        scratchCtx.beginPath();
+        scratchCtx.arc(x, y, 22, 0, Math.PI * 2);
+        scratchCtx.fill();
+        checkScratchPercentage();
+      }
+
+      function getCoords(e) {
+        const currentRect = canvasScratch.getBoundingClientRect();
+        if (e.touches && e.touches.length > 0) {
+          return {
+            x: e.touches[0].clientX - currentRect.left,
+            y: e.touches[0].clientY - currentRect.top
+          };
+        }
+        return {
+          x: e.clientX - currentRect.left,
+          y: e.clientY - currentRect.top
+        };
+      }
+
+      canvasScratch.addEventListener('mousedown', (e) => { isDrawing = true; const c = getCoords(e); scratch(c.x, c.y); });
+      canvasScratch.addEventListener('mousemove', (e) => { if (isDrawing) { const c = getCoords(e); scratch(c.x, c.y); } });
+      window.addEventListener('mouseup', () => { isDrawing = false; });
+
+      canvasScratch.addEventListener('touchstart', (e) => { isDrawing = true; const c = getCoords(e); scratch(c.x, c.y); });
+      canvasScratch.addEventListener('touchmove', (e) => { if (isDrawing) { const c = getCoords(e); scratch(c.x, c.y); } });
+      window.addEventListener('touchend', () => { isDrawing = false; });
+
+      let fullyScratched = false;
+      function checkScratchPercentage() {
+        if (fullyScratched) return;
+        const imgData = scratchCtx.getImageData(0, 0, canvasScratch.width, canvasScratch.height);
+        const pixels = imgData.data;
+        let cleared = 0;
+        for (let i = 3; i < pixels.length; i += 4) {
+          if (pixels[i] === 0) cleared++;
+        }
+        const percentage = cleared / (pixels.length / 4);
+        if (percentage > 0.4) {
+          fullyScratched = true;
+          canvasScratch.classList.add('fade-out');
+          showToast('Invitation date revealed!');
+        }
+      }
+    }
+
+    /* COUNTDOWN TIMER LOGIC */
+    let countdownInterval;
+    function initCountdown() {
+      clearInterval(countdownInterval);
+      const daysVal = document.querySelector('#cardDays .countdown-val');
+      const hoursVal = document.querySelector('#cardHours .countdown-val');
+      const minsVal = document.querySelector('#cardMinutes .countdown-val');
+      const secsVal = document.querySelector('#cardSeconds .countdown-val');
+
+      function updateCountdown() {
+        const target = new Date(config.content.countdown.targetDate).getTime();
+        const now = new Date().getTime();
+        const difference = target - now;
+
+        if (difference < 0) {
+          daysVal.innerText = '00';
+          hoursVal.innerText = '00';
+          minsVal.innerText = '00';
+          secsVal.innerText = '00';
+          return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        const dString = days < 10 ? '0' + days : days.toString();
+        const hString = hours < 10 ? '0' + hours : hours.toString();
+        const mString = minutes < 10 ? '0' + minutes : minutes.toString();
+        const sString = seconds < 10 ? '0' + seconds : seconds.toString();
+
+        if (daysVal.innerText !== dString) { triggerCardFlip(document.getElementById('cardDays')); daysVal.innerText = dString; }
+        if (hoursVal.innerText !== hString) { triggerCardFlip(document.getElementById('cardHours')); hoursVal.innerText = hString; }
+        if (minsVal.innerText !== mString) { triggerCardFlip(document.getElementById('cardMinutes')); minsVal.innerText = mString; }
+        if (secsVal.innerText !== sString) { triggerCardFlip(document.getElementById('cardSeconds')); secsVal.innerText = sString; }
+      }
+
+      updateCountdown();
+      countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
+    function triggerCardFlip(cardEl) {
+      cardEl.classList.add('flip');
+      setTimeout(() => cardEl.classList.remove('flip'), 600);
+    }
+
+    /* GALLERY LIGHTBOX */
+    function openLightbox(imgUrl) {
+      if (!imgUrl) return;
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      img.src = imgUrl;
+      modal.classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.remove('active');
+    }
+
+    /* TOAST FEEDBACK */
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fa-solid fa-heart"></i> <span>${message}</span>`;
+      container.appendChild(toast);
+      
+      setTimeout(() => toast.classList.add('show'), 100);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, 3000);
+    }
+
+    /* AMBIENT MUSIC ENGINE */
+    let isMusicPlaying = false;
+    let audioCtx = null;
+    let synthTimeoutId = null;
+
+    function toggleAmbientMusic() {
+      const btn = document.getElementById('musicBtn');
+      if (!isMusicPlaying) {
+        isMusicPlaying = true;
+        btn.innerHTML = `<i class="fa-solid fa-volume-high" style="color:var(--color-accent-secondary);"></i>`;
+        startSynthesizer();
+        showToast('Ambient Wedding Harp Synthesizer online');
+      } else {
+        isMusicPlaying = false;
+        btn.innerHTML = `<i class="fa-solid fa-volume-xmark"></i>`;
+        stopSynthesizer();
+        showToast('Synthesizer powered down');
+      }
+    }
+
+    function startSynthesizer() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const delayNode = audioCtx.createDelay(2.0);
+        delayNode.delayTime.setValueAtTime(0.6, audioCtx.currentTime);
+        const feedbackNode = audioCtx.createGain();
+        feedbackNode.gain.setValueAtTime(0.35, audioCtx.currentTime);
+        
+        delayNode.connect(feedbackNode);
+        feedbackNode.connect(delayNode);
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(700, audioCtx.currentTime);
+
+        const mainGain = audioCtx.createGain();
+        mainGain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+
+        delayNode.connect(mainGain);
+        filter.connect(mainGain);
+        mainGain.connect(audioCtx.destination);
+
+        const chords = [
+          [261.63, 329.63, 392.00, 493.88], // Cmaj7
+          [196.00, 293.66, 392.00, 587.33], // Gsus4
+          [174.61, 261.63, 349.23, 440.00], // Fmaj7
+          [261.63, 329.63, 392.00, 523.25]  // C
+        ];
+
+        let chordIndex = 0;
+        function playNextChord() {
+          if (!isMusicPlaying) return;
+          const currentChord = chords[chordIndex];
+          chordIndex = (chordIndex + 1) % chords.length;
+
+          currentChord.forEach((freq, idx) => {
+            const osc = audioCtx.createOscillator();
+            const oscGain = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            const timeOffset = idx * 0.15;
+            
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime + timeOffset);
+
+            oscGain.gain.setValueAtTime(0, audioCtx.currentTime + timeOffset);
+            oscGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + timeOffset + 0.05);
+            oscGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + timeOffset + 6.0);
+
+            osc.connect(oscGain);
+            oscGain.connect(filter);
+            oscGain.connect(delayNode);
+            
+            osc.start(audioCtx.currentTime + timeOffset);
+            osc.stop(audioCtx.currentTime + timeOffset + 6.2);
+          });
+
+          synthTimeoutId = setTimeout(playNextChord, 6500);
+        }
+
+        playNextChord();
+      } catch (err) {
+        console.error('Audio initialization failure:', err);
+      }
+    }
+
+    function stopSynthesizer() {
+      if (synthTimeoutId) {
+        clearTimeout(synthTimeoutId);
+        synthTimeoutId = null;
+      }
+      if (audioCtx) {
+        audioCtx.suspend();
+      }
+    }
+
+    /* PARTICLE CANVAS SYSTEM */
+    const canvas = document.getElementById('ambient-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function initCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      particles = [];
+      const particleCount = Math.min(45, Math.floor(window.innerWidth / 30));
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2 + 0.5,
+          speedX: Math.random() * 0.2 - 0.1,
+          speedY: Math.random() * 0.15 + 0.05,
+          opacity: Math.random() * 0.4 + 0.1
+        });
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${hexToRgb(config.styles.accentColor)}, ${p.opacity})`;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', initCanvas);
+
+    /* ADMIN PANEL FUNCTIONS */
+    function openAdmin() {
+      document.getElementById('admin-panel').classList.add('active');
+      populateAdminFields();
+    }
+
+    function closeAdmin() {
+      document.getElementById('admin-panel').classList.remove('active');
+    }
+
+    function switchAdminTab(tabName) {
+      document.querySelectorAll('.admin-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.admin-section').forEach(sec => sec.classList.remove('active'));
+
+      if (tabName === 'style') {
+        document.querySelector('[onclick="switchAdminTab(\'style\')"]').classList.add('active');
+        document.getElementById('admin-tab-style').classList.add('active');
+      } else if (tabName === 'sections') {
+        document.querySelector('[onclick="switchAdminTab(\'sections\')"]').classList.add('active');
+        document.getElementById('admin-tab-sections').classList.add('active');
+      } else {
+        document.querySelector('[onclick="switchAdminTab(\'content\')"]').classList.add('active');
+        document.getElementById('admin-tab-content').classList.add('active');
+        switchContentSection();
+      }
+    }
+
+    function populateAdminFields() {
+      // Styling Fields
+      document.getElementById('adminAccentColor').value = config.styles.accentColor;
+      document.getElementById('adminAccentSecondary').value = config.styles.accentSecondary;
+      document.getElementById('adminFontDisplay').value = config.styles.fontDisplay;
+      document.getElementById('adminGlowRadius').value = config.styles.glowRadius;
+
+      // Visibility Fields
+      document.getElementById('toggleHero').checked = config.visibility.hero;
+      document.getElementById('toggleScratch').checked = config.visibility.scratch;
+      document.getElementById('toggleCountdown').checked = config.visibility.countdown;
+      document.getElementById('toggleAbout').checked = config.visibility.about;
+      document.getElementById('toggleFeatures').checked = config.visibility.features;
+      document.getElementById('toggleGallery').checked = config.visibility.gallery;
+      document.getElementById('toggleTimeline').checked = config.visibility.timeline;
+      document.getElementById('toggleCTA').checked = config.visibility.cta;
+
+      // Content Fields
+      document.getElementById('editLogoText').value = config.content.navigation.logoText;
+      document.getElementById('editHeroEyebrow').value = config.content.hero.eyebrow;
+      document.getElementById('editHeroTitle').value = config.content.hero.title;
+      document.getElementById('editHeroDesc').value = config.content.hero.desc;
+      document.getElementById('editHeroCtaText').value = config.content.hero.ctaText;
+
+      document.getElementById('editScratchTitle').value = config.content.scratch.title;
+      document.getElementById('editScratchSubtitle').value = config.content.scratch.subtitle;
+      document.getElementById('editScratchDateText').value = config.content.scratch.dateText;
+      document.getElementById('editScratchDetailsText').value = config.content.scratch.detailsText;
+
+      document.getElementById('editCountdownTitle').value = config.content.countdown.title;
+      document.getElementById('editCountdownSubtitle').value = config.content.countdown.subtitle;
+      document.getElementById('editCountdownTarget').value = config.content.countdown.targetDate.slice(0, 16);
+
+      document.getElementById('editAboutTitle').value = config.content.about.title;
+      document.getElementById('editAboutSubtitle').value = config.content.about.subtitle;
+
+      document.getElementById('editFeaturesTitle').value = config.content.features.title;
+      document.getElementById('editFeaturesSubtitle').value = config.content.features.subtitle;
+
+      document.getElementById('editGalleryTitle').value = config.content.gallery.title;
+      document.getElementById('editGallerySubtitle').value = config.content.gallery.subtitle;
+
+      document.getElementById('editTimelineTitle').value = config.content.timeline.title;
+      document.getElementById('editTimelineSubtitle').value = config.content.timeline.subtitle;
+
+      document.getElementById('editCtaTitle').value = config.content.cta.title;
+      document.getElementById('editCtaDesc').value = config.content.cta.desc;
+      document.getElementById('editCtaBtnText').value = config.content.cta.ctaBtnText;
+
+      document.getElementById('editFooterText').value = config.content.footer.copyright;
+
+      renderRepeaterEditors();
+    }
+
+    function switchContentSection() {
+      const selected = document.getElementById('adminContentSectionSelect').value;
+      document.querySelectorAll('.edit-sub-section').forEach(sec => sec.style.display = 'none');
+      document.getElementById('edit-sec-' + selected).style.display = 'block';
+    }
+
+    /* REPEATER ITEM CARD POPULATORS */
+    function renderRepeaterEditors() {
+      // About Bento Cards
+      const aboutRep = document.getElementById('repeater-about-cards');
+      aboutRep.innerHTML = '';
+      config.content.about.cards.forEach((card, idx) => {
+        let specificInputs = '';
+        if (card.mapUrl !== undefined) {
+          specificInputs += `
+            <div class="admin-group">
+              <label>Map Link / External URL</label>
+              <input type="text" value="${card.mapUrl}" onchange="updateRepeaterVal('about', ${idx}, 'mapUrl', this.value)">
+            </div>
+          `;
+        }
+        if (card.sampleImage !== undefined) {
+          specificInputs += `
+            <div class="admin-group">
+              <label>Dress Code Image (Mood Board URL)</label>
+              <input type="text" value="${card.sampleImage}" onchange="updateRepeaterVal('about', ${idx}, 'sampleImage', this.value)">
+            </div>
+          `;
+        }
+
+        aboutRep.innerHTML += `
+          <div class="repeater-item-row">
+            <button class="repeater-remove-btn" onclick="removeRepeaterItem('about', ${idx})"><i class="fa-solid fa-trash"></i></button>
+            <div class="admin-group">
+              <label>Icon Class</label>
+              <input type="text" value="${card.icon}" onchange="updateRepeaterVal('about', ${idx}, 'icon', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Card Title</label>
+              <input type="text" value="${card.title}" onchange="updateRepeaterVal('about', ${idx}, 'title', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Card Description</label>
+              <textarea onchange="updateRepeaterVal('about', ${idx}, 'desc', this.value)">${card.desc}</textarea>
+            </div>
+            ${specificInputs}
+            <div class="admin-group">
+              <label>Width Class</label>
+              <select onchange="updateRepeaterVal('about', ${idx}, 'width', this.value)">
+                <option value="bento-col-4" ${card.width === 'bento-col-4' ? 'selected' : ''}>Narrow Card (4 columns)</option>
+                <option value="bento-col-8" ${card.width === 'bento-col-8' ? 'selected' : ''}>Wide Card (8 columns)</option>
+                <option value="bento-col-12" ${card.width === 'bento-col-12' ? 'selected' : ''}>Full Width Card (12 columns)</option>
+              </select>
+            </div>
+          </div>
+        `;
+      });
+
+      // Features Cards
+      const featRep = document.getElementById('repeater-features-cards');
+      featRep.innerHTML = '';
+      config.content.features.cards.forEach((card, idx) => {
+        featRep.innerHTML += `
+          <div class="repeater-item-row">
+            <button class="repeater-remove-btn" onclick="removeRepeaterItem('features', ${idx})"><i class="fa-solid fa-trash"></i></button>
+            <div class="admin-group">
+              <label>Icon Class</label>
+              <input type="text" value="${card.icon}" onchange="updateRepeaterVal('features', ${idx}, 'icon', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Feature Title</label>
+              <input type="text" value="${card.title}" onchange="updateRepeaterVal('features', ${idx}, 'title', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Feature Description</label>
+              <textarea onchange="updateRepeaterVal('features', ${idx}, 'desc', this.value)">${card.desc}</textarea>
+            </div>
+          </div>
+        `;
+      });
+
+      // Gallery Cards
+      const galRep = document.getElementById('repeater-gallery-cards');
+      galRep.innerHTML = '';
+      config.content.gallery.cards.forEach((card, idx) => {
+        galRep.innerHTML += `
+          <div class="repeater-item-row">
+            <button class="repeater-remove-btn" onclick="removeRepeaterItem('gallery', ${idx})"><i class="fa-solid fa-trash"></i></button>
+            <div class="admin-group">
+              <label>Image URL</label>
+              <input type="text" value="${card.image}" onchange="updateRepeaterVal('gallery', ${idx}, 'image', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Card Title</label>
+              <input type="text" value="${card.title}" onchange="updateRepeaterVal('gallery', ${idx}, 'title', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Category Tag</label>
+              <input type="text" value="${card.category}" onchange="updateRepeaterVal('gallery', ${idx}, 'category', this.value)">
+            </div>
+          </div>
+        `;
+      });
+
+      // Timeline Nodes
+      const timeRep = document.getElementById('repeater-timeline-cards');
+      timeRep.innerHTML = '';
+      config.content.timeline.items.forEach((item, idx) => {
+        timeRep.innerHTML += `
+          <div class="repeater-item-row">
+            <button class="repeater-remove-btn" onclick="removeRepeaterItem('timeline', ${idx})"><i class="fa-solid fa-trash"></i></button>
+            <div class="admin-group">
+              <label>Timeframe Label</label>
+              <input type="text" value="${item.time}" onchange="updateRepeaterVal('timeline', ${idx}, 'time', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Heading</label>
+              <input type="text" value="${item.heading}" onchange="updateRepeaterVal('timeline', ${idx}, 'heading', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Description Detail</label>
+              <textarea onchange="updateRepeaterVal('timeline', ${idx}, 'desc', this.value)">${item.desc}</textarea>
+            </div>
+          </div>
+        `;
+      });
+
+      // Social Media Cards
+      const socRep = document.getElementById('repeater-social-cards');
+      socRep.innerHTML = '';
+      config.content.footer.socials.forEach((item, idx) => {
+        socRep.innerHTML += `
+          <div class="repeater-item-row">
+            <button class="repeater-remove-btn" onclick="removeRepeaterItem('social', ${idx})"><i class="fa-solid fa-trash"></i></button>
+            <div class="admin-group">
+              <label>FontAwesome Icon Class</label>
+              <input type="text" value="${item.icon}" onchange="updateRepeaterVal('social', ${idx}, 'icon', this.value)">
+            </div>
+            <div class="admin-group">
+              <label>Target URL</label>
+              <input type="text" value="${item.link}" onchange="updateRepeaterVal('social', ${idx}, 'link', this.value)">
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function updateRepeaterVal(type, index, field, value) {
+      if (type === 'about') config.content.about.cards[index][field] = value;
+      if (type === 'features') config.content.features.cards[index][field] = value;
+      if (type === 'gallery') config.content.gallery.cards[index][field] = value;
+      if (type === 'timeline') config.content.timeline.items[index][field] = value;
+      if (type === 'social') config.content.footer.socials[index][field] = value;
+      applyChangesWithoutSave();
+    }
+
+    function addRepeaterItem(type) {
+      if (type === 'about') {
+        config.content.about.cards.push({ icon: 'fa-solid fa-wine-glass', title: 'Celebration Toast', desc: 'Evening toasts and dessert service details.', width: 'bento-col-4', mapUrl: '#' });
+      } else if (type === 'features') {
+        config.content.features.cards.push({ icon: 'fa-solid fa-heart', title: 'Optional Travel Services', desc: 'Hotel rates and shuttle services detail sheets.' });
+      } else if (type === 'gallery') {
+        config.content.gallery.cards.push({ image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop', title: 'Summer Warmth', category: 'Moments' });
+      } else if (type === 'timeline') {
+        config.content.timeline.items.push({ time: '23:30 // Fireworks', heading: 'Midnight Toast', desc: 'A final sparkling toast to conclude the evening program.' });
+      } else if (type === 'social') {
+        config.content.footer.socials.push({ icon: 'fa-solid fa-envelope', link: '#' });
+      }
+      renderRepeaterEditors();
+      applyChangesWithoutSave();
+      showToast('Item card appended successfully');
+    }
+
+    function removeRepeaterItem(type, index) {
+      if (type === 'about') config.content.about.cards.splice(index, 1);
+      if (type === 'features') config.content.features.cards.splice(index, 1);
+      if (type === 'gallery') config.content.gallery.cards.splice(index, 1);
+      if (type === 'timeline') config.content.timeline.items.splice(index, 1);
+      if (type === 'social') config.content.footer.socials.splice(index, 1);
+      renderRepeaterEditors();
+      applyChangesWithoutSave();
+      showToast('Card removed');
+    }
+
+    /* LIVE PREVIEW LOGIC */
+    function applyStylesLive() {
+      config.styles.accentColor = document.getElementById('adminAccentColor').value;
+      config.styles.accentSecondary = document.getElementById('adminAccentSecondary').value;
+      config.styles.fontDisplay = document.getElementById('adminFontDisplay').value;
+      config.styles.glowRadius = document.getElementById('adminGlowRadius').value;
+      applyStyles();
+      setupScratchCard();
+    }
+
+    function applySectionsLive() {
+      config.visibility.hero = document.getElementById('toggleHero').checked;
+      config.visibility.scratch = document.getElementById('toggleScratch').checked;
+      config.visibility.countdown = document.getElementById('toggleCountdown').checked;
+      config.visibility.about = document.getElementById('toggleAbout').checked;
+      config.visibility.features = document.getElementById('toggleFeatures').checked;
+      config.visibility.gallery = document.getElementById('toggleGallery').checked;
+      config.visibility.timeline = document.getElementById('toggleTimeline').checked;
+      config.visibility.cta = document.getElementById('toggleCTA').checked;
+      applySections();
+      setupScratchCard();
+    }
+
+    function applyChangesWithoutSave() {
+      config.content.navigation.logoText = document.getElementById('editLogoText').value;
+      config.content.hero.eyebrow = document.getElementById('editHeroEyebrow').value;
+      config.content.hero.title = document.getElementById('editHeroTitle').value;
+      config.content.hero.desc = document.getElementById('editHeroDesc').value;
+      config.content.hero.ctaText = document.getElementById('editHeroCtaText').value;
+
+      config.content.scratch.title = document.getElementById('editScratchTitle').value;
+      config.content.scratch.subtitle = document.getElementById('editScratchSubtitle').value;
+      config.content.scratch.dateText = document.getElementById('editScratchDateText').value;
+      config.content.scratch.detailsText = document.getElementById('editScratchDetailsText').value;
+
+      config.content.countdown.title = document.getElementById('editCountdownTitle').value;
+      config.content.countdown.subtitle = document.getElementById('editCountdownSubtitle').value;
+      config.content.countdown.targetDate = document.getElementById('editCountdownTarget').value;
+
+      config.content.about.title = document.getElementById('editAboutTitle').value;
+      config.content.about.subtitle = document.getElementById('editAboutSubtitle').value;
+
+      config.content.features.title = document.getElementById('editFeaturesTitle').value;
+      config.content.features.subtitle = document.getElementById('editFeaturesSubtitle').value;
+
+      config.content.gallery.title = document.getElementById('editGalleryTitle').value;
+      config.content.gallery.subtitle = document.getElementById('editGallerySubtitle').value;
+
+      config.content.timeline.title = document.getElementById('editTimelineTitle').value;
+      config.content.timeline.subtitle = document.getElementById('editTimelineSubtitle').value;
+
+      config.content.cta.title = document.getElementById('editCtaTitle').value;
+      config.content.cta.desc = document.getElementById('editCtaDesc').value;
+      config.content.cta.ctaBtnText = document.getElementById('editCtaBtnText').value;
+
+      config.content.footer.copyright = document.getElementById('editFooterText').value;
+
+      renderPage();
+      initCountdown();
+    }
+
+    /* ACTIONS: SAVE, RESET */
+    function saveAdminData() {
+      applyChangesWithoutSave();
+      localStorage.setItem('premium_landing_config', JSON.stringify(config));
+      showToast('Invitation changes persisted successfully');
+      closeAdmin();
+    }
+
+    function resetConfig() {
+      if (confirm('Revert all invitation text and colors to defaults?')) {
+        config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        localStorage.removeItem('premium_landing_config');
+        renderPage();
+        populateAdminFields();
+        initCountdown();
+        showToast('Restored default invitation database');
+        closeAdmin();
+      }
+    }
+
+    function handleCtaSubmit(event) {
+      event.preventDefault();
+      showToast('RSVP Confirmation Received');
+      event.target.reset();
+    }
+
+    /* INITS */
+    initCanvas();
+    animateParticles();
+    renderPage();
+    initCountdown();
+  </script>
+</body>
+</html>
