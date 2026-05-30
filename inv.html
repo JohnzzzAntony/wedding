@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vihaan & Myra — Wedding Invitation</title>
+    <title>Amal & Kallu — Wedding Celebration</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,20 +13,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/motion@10.16.2/dist/motion.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
-        tailwind.config = { theme: { extend: { colors: { purple: { deep: '#3b0764', DEFAULT: '#6b21a8', light: '#a78bfa', soft: '#c4b5fd', glow: '#7c3aed' }, gold: { light: '#e8c96e', DEFAULT: '#c9a84c', dark: '#9a7a2e' }, cream: '#f5ede0', deep: '#0a0a0a', muted: '#9a8abf' }, fontFamily: { cinzel: ['Cinzel', 'serif'], cormorant: ['Cormorant Garamond', 'serif'], vibez: ['Great Vibes', 'cursive'], body: ['EB Garamond', 'Georgia', 'serif'] } } } }
+        tailwind.config = { theme: { extend: { colors: { purple: { deep: '#0a1012', DEFAULT: '#13b5b1', light: '#8ab4f8', soft: '#e6f7f6', glow: '#13b5b1' }, gold: { light: '#e8c96e', DEFAULT: '#c9a84c', dark: '#9a7a2e' }, cream: '#e6f7f6', deep: '#050a0a', muted: 'rgba(230, 247, 246, 0.7)' }, fontFamily: { cinzel: ['Cinzel', 'serif'], cormorant: ['Cormorant Garamond', 'serif'], vibez: ['Great Vibes', 'cursive'], body: ['EB Garamond', 'Georgia', 'serif'] } } } }
     </script>
     <style>
         :root {
-            --purple: #6b21a8;
-            --purple-light: #a78bfa;
-            --purple-deep: #3b0764;
-            --purple-glow: #7c3aed;
+            --purple: #13b5b1;
+            --purple-light: #8ab4f8;
+            --purple-deep: #0a1012;
+            --purple-glow: #13b5b1;
             --gold: #c9a84c;
             --gold-light: #e8c96e;
-            --cream: #f5ede0;
-            --deep: #0a0a0a;
+            --cream: #e6f7f6;
+            --deep: #050a0a;
         }
 
         * {
@@ -583,7 +584,7 @@
 
     <!-- MUSIC BUTTON -->
     <button
-        class="fixed bottom-7 right-7 z-[100] w-12 h-12 border border-purple-light/40 bg-deep/90 backdrop-blur-md flex items-center justify-center hover:shadow-[0_0_20px_rgba(107,33,168,.3)] transition-all duration-300 cursor-pointer rounded-full"
+        class="fixed bottom-7 right-7 z-[100] w-12 h-12 border border-purple-light/40 bg-deep/90 backdrop-blur-md flex items-center justify-center hover:shadow-[0_0_20px_rgba(107,33,168,.3)] transition-all duration-300 cursor-pointer rounded-full muted"
         id="musicBtn" aria-label="Toggle music">
         <div class="flex items-end gap-[2px] h-[18px]" id="musicBars">
             <div class="music-bar w-[3px] bg-purple-light rounded-sm"></div>
@@ -601,14 +602,14 @@
 ════════════════════════════════════════ -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden" id="hero">
         <div class="absolute inset-0 z-0">
-            <img src="https://picsum.photos/seed/vihaan-myra-wedding/1920/1080.jpg" alt=""
+            <img src="media/A_cinematic,_wide-angle_shot_of_202605280825.jpeg" alt="Amal & Kallu Widescreen"
                 class="w-full h-full object-cover scale-110" id="heroBg"
                 style="filter:brightness(.35) saturate(.6) hue-rotate(20deg);" />
         </div>
         <div class="absolute inset-0 z-[1]"
-            style="background:linear-gradient(180deg,rgba(59,7,100,.5) 0%,rgba(10,6,20,.85) 60%,#0a0a0a 100%);"></div>
+            style="background:linear-gradient(180deg,rgba(10,16,18,.5) 0%,rgba(5,10,10,.85) 60%,#050a0a 100%);"></div>
         <div class="absolute inset-0 z-[2] pointer-events-none"
-            style="background-image:linear-gradient(rgba(167,139,250,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.03) 1px,transparent 1px);background-size:60px 60px;">
+            style="background-image:linear-gradient(rgba(138,180,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(138,180,248,.03) 1px,transparent 1px);background-size:60px 60px;">
         </div>
 
         <div class="relative z-10 flex flex-col items-center gap-10 px-4">
@@ -616,7 +617,7 @@
                 <p class="font-cinzel text-[.5rem] tracking-[.35em] uppercase text-purple-soft mb-3 opacity-0">You are
                     cordially invited</p>
                 <h1 class="font-vibez text-[clamp(2rem,6vw,3.2rem)] text-purple-light leading-[1.1] opacity-0"
-                    style="text-shadow:0 0 40px rgba(167,139,250,.4);" id="heroTitle">Vihaan & Myra</h1>
+                    style="text-shadow:0 0 40px rgba(138,180,248,.4);" id="heroTitle">Amal & Kallu</h1>
             </div>
 
             <div class="relative pb-20" id="doorWrapper">
@@ -634,7 +635,7 @@
                         <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 opacity-40"
                             viewBox="0 0 80 80" fill="none">
                             <path d="M40 10C30 20 10 20 10 40C10 60 30 70 40 70C40 70 40 50 40 40C40 30 40 10 40 10Z"
-                                stroke="#a78bfa" stroke-width=".8" fill="rgba(167,139,250,.04)" />
+                                stroke="#8ab4f8" stroke-width=".8" fill="rgba(138,180,248,.04)" />
                             <circle cx="40" cy="40" r="8" stroke="#c9a84c" stroke-width=".7" />
                         </svg>
                         <div class="door-knob"></div>
@@ -644,26 +645,25 @@
                         <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 opacity-40"
                             viewBox="0 0 80 80" fill="none">
                             <path d="M40 10C50 20 70 20 70 40C70 60 50 70 40 70C40 70 40 50 40 40C40 30 40 10 40 10Z"
-                                stroke="#a78bfa" stroke-width=".8" fill="rgba(167,139,250,.04)" />
+                                stroke="#8ab4f8" stroke-width=".8" fill="rgba(138,180,248,.04)" />
                             <circle cx="40" cy="40" r="8" stroke="#c9a84c" stroke-width=".7" />
                         </svg>
                         <div class="door-knob"></div>
                     </div>
                     <div class="door-content" id="doorContent">
                         <p class="font-vibez text-[clamp(1.5rem,4vw,2rem)] text-purple-soft mb-2"
-                            style="text-shadow:0 0 20px rgba(167,139,250,.3);">In the Name of Love</p>
+                            style="text-shadow:0 0 20px rgba(138,180,248,.3);">In the Name of Love</p>
                         <p class="font-cinzel text-[.45rem] tracking-[.25em] uppercase text-purple-light/60 mb-5">—
                             Wedding Invitation —</p>
                         <div class="font-cinzel text-[clamp(1rem,3.5vw,1.4rem)] text-cream font-semibold leading-snug"
                             id="doorNames">
-                            Vihaan<span
-                                class="font-vibez text-[clamp(1.6rem,5vw,2.4rem)] text-gold block my-1">&amp;</span>Myra
+                            Amal<span
+                                class="font-vibez text-[clamp(1.6rem,5vw,2.4rem)] text-gold block my-1">&amp;</span>Kallu
                         </div>
                         <div class="w-14 h-px bg-gradient-to-r from-transparent via-gold to-transparent my-4"></div>
-                        <p class="font-cormorant text-base text-gold-light italic tracking-wide" id="doorDate">Saturday,
-                            14th February 2026</p>
-                        <p class="text-[.7rem] text-purple-light/50 mt-2 leading-relaxed" id="doorVenue">6:00 PM · The
-                            Grand Palace Hall</p>
+                        <p class="font-cormorant text-base text-gold-light italic tracking-wide" id="doorDate">Sunday,
+                            21st June 2026</p>
+                        <p class="text-[.7rem] text-purple-light/50 mt-2 leading-relaxed" id="doorVenue">11:58 AM · Contour Indraprastham Auditorium</p>
                     </div>
                     <div class="absolute inset-0 pointer-events-none z-30 overflow-hidden" id="sparkles"></div>
                 </div>
@@ -701,14 +701,18 @@
                     <div class="absolute inset-0 flex flex-col items-center justify-center z-[1]"
                         style="background:linear-gradient(135deg,#2d1150,#1a0832);">
                         <span class="font-cinzel text-[clamp(1.3rem,3.5vw,1.7rem)] text-gold-light tracking-wider"
-                            style="text-shadow:0 0 20px rgba(201,168,76,.5);" id="scratchDate">14 · 02 · 2026</span>
+                            style="text-shadow:0 0 20px rgba(201,168,76,.5);" id="scratchDate">21 · 06 · 2026</span>
                         <span class="font-cormorant italic text-[.82rem] text-purple-light/60 mt-1"
-                            id="scratchDay">Saturday Evening</span>
+                            id="scratchDay">Sunday Morning 11:58 AM</span>
                     </div>
                     <canvas id="scratchCanvas"></canvas>
                 </div>
-                <p class="font-cinzel text-[.45rem] tracking-[.2em] uppercase text-purple-light/40"><span
-                        class="inline-block animate-pulse">✋</span> Scratch to reveal</p>
+                <p class="font-cinzel text-[.45rem] tracking-[.2em] uppercase text-purple-light/40 flex items-center justify-center gap-1">
+                    <svg class="w-3.5 h-3.5 animate-pulse text-gold fill-current inline-block" viewBox="0 0 24 24">
+                        <path d="M12 11V6a2 2 0 0 1 4 0v5M8 11V4a2 2 0 0 1 4 0v7M4 11v-1a2 2 0 0 1 4 0v2M16 11V8a2 2 0 0 1 4 0v3M20 11v2a8 8 0 0 1-16 0v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Scratch to reveal
+                </p>
             </div>
         </div>
     </section>
@@ -725,87 +729,103 @@
         <div class="overflow-hidden">
             <div class="flex gap-1.5" id="galleryTrack" style="animation:marquee 45s linear infinite;">
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm1/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm1/480/640.jpg" alt=""
+                    onclick="openLightbox('media/couple_portrait.jpg')"><img
+                        src="media/couple_portrait.jpg" alt="Amal & Kallu"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">First
-                        Meet</span>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Amal & Kallu</span>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm2/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm2/480/640.jpg" alt=""
+                    onclick="openLightbox('media/couple_standing.jpg')"><img
+                        src="media/couple_standing.jpg" alt="Traditional Elegance"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                    <span
-                        class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Together</span>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Traditional</span>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm3/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm3/480/640.jpg" alt=""
+                    onclick="openLightbox('media/A_romantic_photorealistic_scene_of_202605280824.jpeg')"><img
+                        src="media/A_romantic_photorealistic_scene_of_202605280824.jpeg" alt="Endless Love"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                    <span
-                        class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Adventures</span>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Endless Love</span>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm4/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm4/480/640.jpg" alt=""
+                    onclick="openLightbox('media/Classic_\'save_the_date\'_photoshoot_202605280818.jpeg')"><img
+                        src="media/Classic_\'save_the_date\'_photoshoot_202605280818.jpeg" alt="Save The Date"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">The
-                        Proposal</span>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Save The Date</span>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm5/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm5/480/640.jpg" alt=""
+                    onclick="openLightbox('media/The_couple_depicted_in_a_202605280825.jpeg')"><img
+                        src="media/The_couple_depicted_in_a_202605280825.jpeg" alt="Engagement"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                    <span
-                        class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Engagement</span>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Engagement</span>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm6/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm6/480/640.jpg" alt=""
+                    onclick="openLightbox('media/Replace_the_background_with_a_202605280812.jpeg')"><img
+                        src="media/Replace_the_background_with_a_202605280812.jpeg" alt="Enchanted Garden"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                    <span
-                        class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Forever</span>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Enchanted</span>
                 </div>
-                <!-- Duplicate -->
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm1/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm1/480/640.jpg" alt=""
+                    onclick="openLightbox('media/Impressionist_oil_painting_style._The_202605280813.jpeg')"><img
+                        src="media/Impressionist_oil_painting_style._The_202605280813.jpeg" alt="Painted Dreams"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Painted Dreams</span>
+                </div>
+                <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
+                    onclick="openLightbox('media/Dramatic_charcoal_sketch_style._The_202605280813.jpeg')"><img
+                        src="media/Dramatic_charcoal_sketch_style._The_202605280813.jpeg" alt="Sketch of Us"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Sketch of Us</span>
+                </div>
+                <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
+                    onclick="openLightbox('media/A_detailed_charcoal_and_graphite_202605280825.jpeg')"><img
+                        src="media/A_detailed_charcoal_and_graphite_202605280825.jpeg" alt="Fine Art"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Fine Art</span>
+                </div>
+                <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
+                    onclick="openLightbox('media/A_cinematic,_wide-angle_shot_of_202605280825.jpeg')"><img
+                        src="media/A_cinematic,_wide-angle_shot_of_202605280825.jpeg" alt="Cinematic Moments"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                    <span class="absolute bottom-4 left-1/2 -translate-x-1/2 font-vibez text-lg text-white/70">Cinematic</span>
+                </div>
+                <!-- Duplicate for seamless looping -->
+                <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
+                    onclick="openLightbox('media/couple_portrait.jpg')"><img
+                        src="media/couple_portrait.jpg" alt=""
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm2/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm2/480/640.jpg" alt=""
+                    onclick="openLightbox('media/couple_standing.jpg')"><img
+                        src="media/couple_standing.jpg" alt=""
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm3/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm3/480/640.jpg" alt=""
+                    onclick="openLightbox('media/A_romantic_photorealistic_scene_of_202605280824.jpeg')"><img
+                        src="media/A_romantic_photorealistic_scene_of_202605280824.jpeg" alt=""
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm4/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm4/480/640.jpg" alt=""
+                    onclick="openLightbox('media/Classic_\'save_the_date\'_photoshoot_202605280818.jpeg')"><img
+                        src="media/Classic_\'save_the_date\'_photoshoot_202605280818.jpeg" alt=""
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 </div>
                 <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm5/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm5/480/640.jpg" alt=""
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                </div>
-                <div class="flex-shrink-0 w-[240px] h-[320px] relative overflow-hidden cursor-pointer group"
-                    onclick="openLightbox('https://picsum.photos/seed/vm6/480/640.jpg')"><img
-                        src="https://picsum.photos/seed/vm6/480/640.jpg" alt=""
+                    onclick="openLightbox('media/The_couple_depicted_in_a_202605280825.jpeg')"><img
+                        src="media/The_couple_depicted_in_a_202605280825.jpeg" alt=""
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 </div>
@@ -826,30 +846,35 @@
                 Your <em class="text-gold-light italic">Special Day</em> Approaches</h2>
             <p class="text-purple-light/50 text-center max-w-lg mx-auto mb-12 reveal-el">Every moment brings us closer
                 to the beginning of forever.</p>
-            <div class="grid grid-cols-4 gap-[2px] max-w-xl mx-auto reveal-el" id="countdownGrid">
-                <div class="text-center py-8 px-2 bg-purple/[.05] border border-purple/20">
-                    <span class="font-cinzel text-[clamp(2rem,5vw,3.2rem)] text-purple-light leading-none block"
-                        style="text-shadow:0 0 30px rgba(167,139,250,.4);" id="cd-days">00</span>
-                    <span
-                        class="font-cinzel text-[.4rem] tracking-[.2em] uppercase text-purple-light/50 mt-2 block">Days</span>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-10 max-w-4xl mx-auto reveal-el">
+                <div id="tilt-image-wrapper" class="w-[280px] h-[340px] border border-purple/30 bg-purple/[.05] p-2 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.6)] cursor-pointer group" onclick="openLightbox('media/A_detailed_charcoal_and_graphite_202605280825.jpeg')">
+                    <img src="media/A_detailed_charcoal_and_graphite_202605280825.jpeg" alt="Couple Drawing" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
-                <div class="text-center py-8 px-2 bg-purple/[.05] border border-purple/20">
-                    <span class="font-cinzel text-[clamp(2rem,5vw,3.2rem)] text-purple-light leading-none block"
-                        style="text-shadow:0 0 30px rgba(167,139,250,.4);" id="cd-hours">00</span>
-                    <span
-                        class="font-cinzel text-[.4rem] tracking-[.2em] uppercase text-purple-light/50 mt-2 block">Hours</span>
-                </div>
-                <div class="text-center py-8 px-2 bg-purple/[.05] border border-purple/20">
-                    <span class="font-cinzel text-[clamp(2rem,5vw,3.2rem)] text-purple-light leading-none block"
-                        style="text-shadow:0 0 30px rgba(167,139,250,.4);" id="cd-mins">00</span>
-                    <span
-                        class="font-cinzel text-[.4rem] tracking-[.2em] uppercase text-purple-light/50 mt-2 block">Minutes</span>
-                </div>
-                <div class="text-center py-8 px-2 bg-purple/[.05] border border-purple/20">
-                    <span class="font-cinzel text-[clamp(2rem,5vw,3.2rem)] text-gold leading-none block"
-                        style="text-shadow:0 0 30px rgba(201,168,76,.4);" id="cd-secs">00</span>
-                    <span
-                        class="font-cinzel text-[.4rem] tracking-[.2em] uppercase text-purple-light/50 mt-2 block">Seconds</span>
+                <div class="grid grid-cols-4 gap-[2px] w-full max-w-lg" id="countdownGrid">
+                    <div class="text-center py-8 px-2 bg-purple/[.05] border border-purple/20">
+                        <span class="font-cinzel text-[clamp(2rem,5vw,3.2rem)] text-purple-light leading-none block"
+                            style="text-shadow:0 0 30px rgba(138,180,248,.4);" id="cd-days">00</span>
+                        <span
+                            class="font-cinzel text-[.4rem] tracking-[.2em] uppercase text-purple-light/50 mt-2 block">Days</span>
+                    </div>
+                    <div class="text-center py-8 px-2 bg-purple/[.05] border border-purple/20">
+                        <span class="font-cinzel text-[clamp(2rem,5vw,3.2rem)] text-purple-light leading-none block"
+                            style="text-shadow:0 0 30px rgba(138,180,248,.4);" id="cd-hours">00</span>
+                        <span
+                            class="font-cinzel text-[.4rem] tracking-[.2em] uppercase text-purple-light/50 mt-2 block">Hours</span>
+                    </div>
+                    <div class="text-center py-8 px-2 bg-purple/[.05] border border-purple/20">
+                        <span class="font-cinzel text-[clamp(2rem,5vw,3.2rem)] text-purple-light leading-none block"
+                            style="text-shadow:0 0 30px rgba(138,180,248,.4);" id="cd-mins">00</span>
+                        <span
+                            class="font-cinzel text-[.4rem] tracking-[.2em] uppercase text-purple-light/50 mt-2 block">Minutes</span>
+                    </div>
+                    <div class="text-center py-8 px-2 bg-purple/[.05] border border-purple/20">
+                        <span class="font-cinzel text-[clamp(2rem,5vw,3.2rem)] text-gold leading-none block"
+                            style="text-shadow:0 0 30px rgba(201,168,76,.4);" id="cd-secs">00</span>
+                        <span
+                            class="font-cinzel text-[.4rem] tracking-[.2em] uppercase text-purple-light/50 mt-2 block">Seconds</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -866,7 +891,55 @@
                 Program <em class="text-gold-light italic">Timeline</em></h2>
             <div class="relative" id="timelineContainer">
                 <div class="timeline-line"></div>
-                <!-- Timeline items rendered by JS -->
+                <!-- Timeline items (Pre-rendered statically for Amal & Kallu) -->
+                <div class="relative py-6 md:py-8 md:pr-[55%] pl-12 md:pl-0 reveal-el">
+                    <div class="timeline-dot"></div>
+                    <div class="border border-purple/20 bg-purple/[.04] p-5 relative">
+                        <span class="font-cinzel text-[.7rem] tracking-[.1em] text-gold">11:00 AM</span>
+                        <div class="font-cinzel text-[.6rem] tracking-[.08em] uppercase text-cream mt-1 mb-1">Guest Welcome</div>
+                        <div class="text-[.78rem] text-purple-light/50">Welcoming of guests at Contour Indraprastham Auditorium.</div>
+                    </div>
+                </div>
+                <div class="relative py-6 md:py-8 md:pl-[55%] pl-12 md:pl-0 reveal-el">
+                    <div class="timeline-dot"></div>
+                    <div class="border border-purple/20 bg-purple/[.04] p-5 relative">
+                        <span class="font-cinzel text-[.7rem] tracking-[.1em] text-gold">11:58 AM - 12:21 PM</span>
+                        <div class="font-cinzel text-[.6rem] tracking-[.08em] uppercase text-cream mt-1 mb-1">Sacred Muhurtham</div>
+                        <div class="text-[.78rem] text-purple-light/50">The marriage vows and traditional tying of the knot.</div>
+                    </div>
+                </div>
+                <div class="relative py-6 md:py-8 md:pr-[55%] pl-12 md:pl-0 reveal-el">
+                    <div class="timeline-dot"></div>
+                    <div class="border border-purple/20 bg-purple/[.04] p-5 relative">
+                        <span class="font-cinzel text-[.7rem] tracking-[.1em] text-gold">12:30 PM Onwards</span>
+                        <div class="font-cinzel text-[.6rem] tracking-[.08em] uppercase text-cream mt-1 mb-1">Traditional Sadhya</div>
+                        <div class="text-[.78rem] text-purple-light/50">A grand traditional wedding feast served on plantain leaves.</div>
+                    </div>
+                </div>
+                <div class="relative py-6 md:py-8 md:pl-[55%] pl-12 md:pl-0 reveal-el">
+                    <div class="timeline-dot"></div>
+                    <div class="border border-purple/20 bg-purple/[.04] p-5 relative">
+                        <span class="font-cinzel text-[.7rem] tracking-[.1em] text-gold">6:00 PM</span>
+                        <div class="font-cinzel text-[.6rem] tracking-[.08em] uppercase text-cream mt-1 mb-1">Reception Begins</div>
+                        <div class="text-[.78rem] text-purple-light/50">Grand reception at Mar Baselious Mar Gregorios Hall, Thazhathangady.</div>
+                    </div>
+                </div>
+                <div class="relative py-6 md:py-8 md:pr-[55%] pl-12 md:pl-0 reveal-el">
+                    <div class="timeline-dot"></div>
+                    <div class="border border-purple/20 bg-purple/[.04] p-5 relative">
+                        <span class="font-cinzel text-[.7rem] tracking-[.1em] text-gold">7:30 PM</span>
+                        <div class="font-cinzel text-[.6rem] tracking-[.08em] uppercase text-cream mt-1 mb-1">Dinner & Music</div>
+                        <div class="text-[.78rem] text-purple-light/50">Dinner served with live light music performances.</div>
+                    </div>
+                </div>
+                <div class="relative py-6 md:py-8 md:pl-[55%] pl-12 md:pl-0 reveal-el">
+                    <div class="timeline-dot"></div>
+                    <div class="border border-purple/20 bg-purple/[.04] p-5 relative">
+                        <span class="font-cinzel text-[.7rem] tracking-[.1em] text-gold">10:00 PM</span>
+                        <div class="font-cinzel text-[.6rem] tracking-[.08em] uppercase text-cream mt-1 mb-1">Farewell</div>
+                        <div class="text-[.78rem] text-purple-light/50">Send-off with warm wishes and blessings.</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -885,9 +958,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-purple/20 reveal-el">
             <div class="bg-[#0a0812] p-10 md:p-12 flex flex-col justify-center">
                 <h3 class="font-cormorant text-[clamp(1.3rem,2.5vw,1.9rem)] text-cream font-normal mb-3 leading-tight"
-                    id="venueName">The Grand Palace Hall</h3>
-                <p class="text-[.82rem] text-purple-light/50 leading-relaxed mb-6" id="venueAddress">MG Road, City
-                    Center<br />New Delhi, India</p>
+                    id="venueName">Contour Indraprastham Auditorium</h3>
+                <p class="text-[.82rem] text-purple-light/50 leading-relaxed mb-6" id="venueAddress">Near Thirunakara Temple<br />Kottayam, Kerala, India</p>
                 <div class="flex flex-col gap-3" id="venueDetails">
                     <div class="flex items-center gap-3 text-[.78rem] text-purple-light/50">
                         <svg class="w-3.5 h-3.5 stroke-gold flex-shrink-0" viewBox="0 0 24 24" fill="none"
@@ -897,7 +969,7 @@
                             <line x1="8" y1="2" x2="8" y2="6" />
                             <line x1="3" y1="10" x2="21" y2="10" />
                         </svg>
-                        <span id="venueDateDetail">Saturday, 14th February 2026</span>
+                        <span id="venueDateDetail">Sunday, 21st June 2026</span>
                     </div>
                     <div class="flex items-center gap-3 text-[.78rem] text-purple-light/50">
                         <svg class="w-3.5 h-3.5 stroke-gold flex-shrink-0" viewBox="0 0 24 24" fill="none"
@@ -905,7 +977,7 @@
                             <circle cx="12" cy="12" r="10" />
                             <polyline points="12 6 12 12 16 14" />
                         </svg>
-                        <span id="venueTimeDetail">Reception 6:00 PM · Ceremony 7:30 PM</span>
+                        <span id="venueTimeDetail">Ceremony 11:58 AM · Feast 12:30 PM</span>
                     </div>
                     <div class="flex items-center gap-3 text-[.78rem] text-purple-light/50">
                         <svg class="w-3.5 h-3.5 stroke-gold flex-shrink-0" viewBox="0 0 24 24" fill="none"
@@ -920,7 +992,7 @@
             <div class="relative min-h-[300px] flex items-center justify-center cursor-pointer group"
                 style="background-image:linear-gradient(rgba(167,139,250,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.04) 1px,transparent 1px);background-size:28px 28px;"
                 id="mapPlaceholder"
-                onclick="window.open('https://maps.google.com/?q=The+Grand+Palace+Hall+New+Delhi','_blank')">
+                onclick="window.open('https://maps.google.com/?q=Contour+Indraprastham+Auditorium+Kottayam','_blank')">
                 <div class="absolute w-20 h-20 border border-purple-light/30 rounded-full"
                     style="animation:mapPulse 2s ease-out infinite;"></div>
                 <div class="absolute w-20 h-20 border border-purple-light/30 rounded-full"
@@ -955,17 +1027,16 @@
                     <div class="w-10 h-10 rounded-full mx-auto mb-3 border border-gold/30"
                         style="background:linear-gradient(135deg,#1a0f2e,#2d1150);"></div>
                     <div class="font-cinzel text-[.6rem] tracking-[.1em] uppercase text-cream mb-1">Gentlemen</div>
-                    <div class="text-[.8rem] text-purple-light/60" id="dressMen">Black Tie / Sherwani</div>
+                    <div class="text-[.8rem] text-purple-light/60" id="dressMen">Traditional Mundu & Shirt</div>
                 </div>
                 <div class="border border-purple/30 bg-purple/[.05] px-8 py-6 text-center min-w-[140px]">
                     <div class="w-10 h-10 rounded-full mx-auto mb-3 border border-gold/30"
                         style="background:linear-gradient(135deg,#2d1150,#4a1a70);"></div>
                     <div class="font-cinzel text-[.6rem] tracking-[.1em] uppercase text-cream mb-1">Ladies</div>
-                    <div class="text-[.8rem] text-purple-light/60" id="dressWomen">Evening Gown / Saree</div>
+                    <div class="text-[.8rem] text-purple-light/60" id="dressWomen">Saree / Traditional Wear</div>
                 </div>
             </div>
-            <p class="text-[.72rem] text-purple-light/40 mt-6 reveal-el" id="dressNote">Colors: Royal Purple, Gold, Deep
-                Navy</p>
+            <p class="text-[.72rem] text-purple-light/40 mt-6 reveal-el" id="dressNote">Colors: Luxury Teal, Soft Cyan, Steel Blue, Cream</p>
         </div>
     </section>
 
@@ -979,7 +1050,30 @@
             <h2 class="font-cormorant text-[clamp(1.8rem,5vw,3rem)] font-light text-center text-cream mb-14 reveal-el">
                 Pre-Wedding <em class="text-gold-light italic">Events</em></h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="preWeddingContainer">
-                <!-- Rendered by JS -->
+                <div class="border border-purple/20 bg-purple/[.04] p-6 text-center reveal-el flex flex-col items-center">
+                    <div class="w-full h-44 mb-4 overflow-hidden border border-purple/10">
+                        <img src="media/The_couple_depicted_in_a_202605280825.jpeg" alt="Sangeet & Henna" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    </div>
+                    <div class="font-vibez text-2xl text-gold mb-2">Sangeet & Henna</div>
+                    <div class="font-cinzel text-[.5rem] tracking-[.15em] uppercase text-purple-light mb-3">June 19 · 5:00 PM</div>
+                    <p class="text-[.82rem] text-purple-light/60 leading-relaxed">An evening of music, dance, and henna celebrations with friends.</p>
+                </div>
+                <div class="border border-purple/20 bg-purple/[.04] p-6 text-center reveal-el flex flex-col items-center">
+                    <div class="w-full h-44 mb-4 overflow-hidden border border-purple/10">
+                        <img src="media/couple_standing.jpg" alt="Traditional Haldi" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    </div>
+                    <div class="font-vibez text-2xl text-gold mb-2">Traditional Haldi</div>
+                    <div class="font-cinzel text-[.5rem] tracking-[.15em] uppercase text-purple-light mb-3">June 20 · 10:00 AM</div>
+                    <p class="text-[.82rem] text-purple-light/60 leading-relaxed">The haldi purification ceremony at the couple's residences.</p>
+                </div>
+                <div class="border border-purple/20 bg-purple/[.04] p-6 text-center reveal-el flex flex-col items-center">
+                    <div class="w-full h-44 mb-4 overflow-hidden border border-purple/10">
+                        <img src="media/Classic_'save_the_date'_photoshoot_202605280818.jpeg" alt="Muhurtham Vows" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    </div>
+                    <div class="font-vibez text-2xl text-gold mb-2">Muhurtham Vows</div>
+                    <div class="font-cinzel text-[.5rem] tracking-[.15em] uppercase text-purple-light mb-3">June 21 · 11:58 AM</div>
+                    <p class="text-[.82rem] text-purple-light/60 leading-relaxed">The main wedding ceremony and traditional feast.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1005,8 +1099,7 @@
                     <div>
                         <div class="font-cinzel text-[.6rem] tracking-[.1em] uppercase text-cream mb-1">Complimentary
                             Shuttle</div>
-                        <div class="text-[.82rem] text-purple-light/60" id="transportShuttle">Pickup from Hotel Le
-                            Meridien at 5:30 PM. Return shuttle at 11:30 PM.</div>
+                        <div class="text-[.82rem] text-purple-light/60" id="transportShuttle">Complimentary pickup from Kottayam Railway Station at 11:00 AM. Return shuttle at 3:30 PM.</div>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 mb-5">
@@ -1017,8 +1110,7 @@
                     </svg>
                     <div>
                         <div class="font-cinzel text-[.6rem] tracking-[.1em] uppercase text-cream mb-1">By Car</div>
-                        <div class="text-[.82rem] text-purple-light/60" id="transportCar">Valet parking available. Enter
-                            from Gate 3 on MG Road.</div>
+                        <div class="text-[.82rem] text-purple-light/60" id="transportCar">Valet parking is available at the Contour Indraprastham Auditorium. Enter via Temple Road.</div>
                     </div>
                 </div>
                 <div class="flex items-start gap-4">
@@ -1029,8 +1121,7 @@
                     </svg>
                     <div>
                         <div class="font-cinzel text-[.6rem] tracking-[.1em] uppercase text-cream mb-1">By Metro</div>
-                        <div class="text-[.82rem] text-purple-light/60" id="transportMetro">Nearest station: Rajiv Chowk
-                            (5 min walk)</div>
+                        <div class="text-[.82rem] text-purple-light/60" id="transportMetro">Nearest major transport hub: Kottayam KSRTC Bus Stand / Railway Station</div>
                     </div>
                 </div>
             </div>
@@ -1056,23 +1147,22 @@
                         <path d="M9 13h1" />
                         <path d="M9 17h1" />
                     </svg>
-                    <span class="font-cinzel text-[.7rem] tracking-[.1em] uppercase text-cream" id="accomHotel">Hotel Le
-                        Meridien</span>
+                    <span class="font-cinzel text-[.7rem] tracking-[.1em] uppercase text-cream" id="accomHotel">Contour Indraprastham Hotel</span>
                 </div>
                 <p class="text-[.82rem] text-purple-light/60 mb-4 text-center" id="accomDetail">We have arranged a
-                    special rate for our guests. Use code <span class="text-gold font-semibold">VIHAANMYRA26</span> when
+                    special rate for our wedding guests. Use code <span class="text-gold font-semibold">AMALKALLU26</span> when
                     booking.</p>
                 <div class="flex flex-col sm:flex-row gap-3 justify-center text-[.78rem] text-purple-light/50">
                     <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 stroke-purple-light flex-shrink-0"
                             viewBox="0 0 24 24" fill="none" stroke-width="1.5">
                             <path
                                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72" />
-                        </svg><span id="accomPhone">+91 11 2389 1234</span></div>
+                        </svg><span id="accomPhone">+91 94970 87846</span></div>
                     <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 stroke-purple-light flex-shrink-0"
                             viewBox="0 0 24 24" fill="none" stroke-width="1.5">
                             <circle cx="12" cy="12" r="10" />
                             <polyline points="12 6 12 12 16 14" />
-                        </svg><span id="accomDeadline">Book before Jan 15th for discounted rate</span></div>
+                        </svg><span id="accomDeadline">Book before June 1st for discounted rate</span></div>
                 </div>
             </div>
         </div>
@@ -1095,13 +1185,11 @@
                     <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
                     <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
                 </svg>
-                <p class="text-[.88rem] text-purple-light/60 leading-relaxed mb-4" id="giftMessage">Your love and
-                    presence at our wedding is the greatest gift of all. However, if you wish to honour us with a gift,
-                    a contribution to our newlywed fund would be sincerely appreciated.</p>
+                <p class="text-[.88rem] text-purple-light/60 leading-relaxed mb-4" id="giftMessage">Your presence and blessings on our special day are the greatest gifts. However, if you wish to honor us, a contribution to our newlywed journey would be warmly appreciated.</p>
                 <div class="pt-4 border-t border-purple/20" id="giftBankInfo">
                     <p class="font-cinzel text-[.5rem] tracking-[.15em] uppercase text-gold mb-2">Bank Details</p>
-                    <p class="text-[.78rem] text-purple-light/50">Account: Vihaan Sharma & Myra Kapoor</p>
-                    <p class="text-[.78rem] text-purple-light/50">IFSC: SBIN0001234 · A/C: 3827465019</p>
+                    <p class="text-[.78rem] text-purple-light/50">Account: Amal Chandrasekharan & Kallu Suresh</p>
+                    <p class="text-[.78rem] text-purple-light/50">IFSC: SBIN0070112 · A/C: 1029384756</p>
                 </div>
             </div>
         </div>
@@ -1182,7 +1270,7 @@
      FOOTER
 ════════════════════════════════════════ -->
     <footer class="relative z-[1] border-t border-purple/20 text-center py-16 px-6" style="background:#050408;">
-        <div class="font-vibez text-3xl text-purple-light mb-2 cursor-pointer" id="footerLogo">Vihaan & Myra</div>
+        <div class="font-vibez text-3xl text-purple-light mb-2 cursor-pointer" id="footerLogo">Amal & Kallu</div>
         <p class="text-[.72rem] text-purple-light/40 tracking-[.15em] mb-6">Forever starts here</p>
         <div class="flex items-center justify-center gap-4 max-w-xs mx-auto mb-8">
             <div class="flex-1 h-px bg-gradient-to-r from-transparent to-purple/50"></div>
@@ -1190,11 +1278,16 @@
             <div class="flex-1 h-px bg-gradient-to-l from-transparent to-purple/50"></div>
         </div>
         <p class="font-cormorant italic text-[.95rem] text-purple-light/50 max-w-md mx-auto leading-relaxed mb-6"
-            id="footerQuote">"And among His signs is that He created for you mates from among yourselves, that you may
-            dwell in tranquility with them, and He has put love and mercy between your hearts."</p>
+            id="footerQuote">"Grow old along with me! The best is yet to be." — Robert Browning</p>
         <p class="text-[.6rem] text-purple-light/25">With love and gratitude · 2026</p>
-        <p class="text-[.45rem] text-purple-light/15 mt-4 cursor-pointer hover:text-purple-light/40 transition-colors"
-            onclick="openAdmin()">⚙ Admin Panel</p>
+        <p class="text-[.45rem] text-purple-light/15 mt-4 cursor-pointer hover:text-purple-light/40 transition-colors flex items-center justify-center gap-1"
+            onclick="openAdmin()">
+            <svg class="w-3 h-3 stroke-current animate-[spin_8s_linear_infinite]" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+            Admin Panel
+        </p>
     </footer>
 
     <!-- ═══════════════════════════════════════
@@ -1232,43 +1325,47 @@
 
         <!-- Tab: Details -->
         <div class="admin-tab-content p-6 space-y-4" id="tab-details">
-            <div><label class="admin-label">Groom Name</label><input class="admin-input" id="a-groom" value="Vihaan" />
+            <div><label class="admin-label">Groom Name</label><input class="admin-input" id="a-groom" value="Amal" />
             </div>
-            <div><label class="admin-label">Bride Name</label><input class="admin-input" id="a-bride" value="Myra" />
+            <div><label class="admin-label">Bride Name</label><input class="admin-input" id="a-bride" value="Kallu" />
             </div>
             <div><label class="admin-label">Wedding Date</label><input class="admin-input" type="date" id="a-date"
-                    value="2026-02-14" /></div>
+                    value="2026-06-21" /></div>
             <div><label class="admin-label">Wedding Time</label><input class="admin-input" type="time" id="a-time"
-                    value="18:00" /></div>
+                    value="11:58" /></div>
             <div><label class="admin-label">Venue Name</label><input class="admin-input" id="a-venue"
-                    value="The Grand Palace Hall" /></div>
+                    value="Contour Indraprastham Auditorium" /></div>
             <div><label class="admin-label">Venue Address</label><textarea class="admin-input admin-textarea"
-                    id="a-address">MG Road, City Center&#10;New Delhi, India</textarea></div>
+                    id="a-address">Near Thirunakara Temple&#10;Kottayam, Kerala, India</textarea></div>
             <div><label class="admin-label">Dress Code - Men</label><input class="admin-input" id="a-dressMen"
-                    value="Black Tie / Sherwani" /></div>
+                    value="Traditional Mundu & Shirt" /></div>
             <div><label class="admin-label">Dress Code - Women</label><input class="admin-input" id="a-dressWomen"
-                    value="Evening Gown / Saree" /></div>
+                    value="Saree / Traditional Wear" /></div>
             <div><label class="admin-label">Dress Code Colors</label><input class="admin-input" id="a-dressColors"
-                    value="Royal Purple, Gold, Deep Navy" /></div>
+                    value="Luxury Teal, Soft Cyan, Steel Blue, Cream" /></div>
             <div><label class="admin-label">Shuttle Info</label><input class="admin-input" id="a-shuttle"
-                    value="Pickup from Hotel Le Meridien at 5:30 PM. Return shuttle at 11:30 PM." /></div>
+                    value="Complimentary pickup from Kottayam Railway Station at 11:00 AM. Return shuttle at 3:30 PM." /></div>
             <div><label class="admin-label">Car Info</label><input class="admin-input" id="a-car"
-                    value="Valet parking available. Enter from Gate 3 on MG Road." /></div>
+                    value="Valet parking is available at the Contour Indraprastham Auditorium. Enter via Temple Road." /></div>
             <div><label class="admin-label">Metro Info</label><input class="admin-input" id="a-metro"
-                    value="Nearest station: Rajiv Chowk (5 min walk)" /></div>
+                    value="Nearest major transport hub: Kottayam KSRTC Bus Stand / Railway Station" /></div>
             <div><label class="admin-label">Accommodation Hotel</label><input class="admin-input" id="a-accomHotel"
-                    value="Hotel Le Meridien" /></div>
+                    value="Contour Indraprastham Hotel" /></div>
             <div><label class="admin-label">Accommodation Details</label><textarea class="admin-input admin-textarea"
-                    id="a-accomDetail">We have arranged a special rate for our guests. Use code VIHAANMYRA26 when booking.</textarea>
+                    id="a-accomDetail">We have arranged a special rate for our wedding guests. Use code AMALKALLU26 when booking.</textarea>
             </div>
+            <div><label class="admin-label">Accommodation Phone</label><input class="admin-input" id="a-accomPhone"
+                    value="+91 94970 87846" /></div>
+            <div><label class="admin-label">Accommodation Deadline</label><input class="admin-input" id="a-accomDeadline"
+                    value="Book before June 1st for discounted rate" /></div>
             <div><label class="admin-label">Gift Message</label><textarea class="admin-input admin-textarea"
-                    id="a-giftMsg">Your love and presence at our wedding is the greatest gift of all. However, if you wish to honour us with a gift, a contribution to our newlywed fund would be sincerely appreciated.</textarea>
+                    id="a-giftMsg">Your presence and blessings on our special day are the greatest gifts. However, if you wish to honor us, a contribution to our newlywed journey would be warmly appreciated.</textarea>
             </div>
             <div><label class="admin-label">Bank Details</label><textarea class="admin-input admin-textarea" id="a-bank"
-                    style="min-height:60px;">Account: Vihaan Sharma & Myra Kapoor&#10;IFSC: SBIN0001234 · A/C: 3827465019</textarea>
+                    style="min-height:60px;">Account: Amal Chandrasekharan & Kallu Suresh&#10;IFSC: SBIN0070112 · A/C: 1029384756</textarea>
             </div>
             <div><label class="admin-label">Footer Quote</label><textarea class="admin-input admin-textarea"
-                    id="a-quote">"And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts."</textarea>
+                    id="a-quote">"Grow old along with me! The best is yet to be." — Robert Browning</textarea>
             </div>
             <button onclick="saveDetails()"
                 class="admin-btn bg-purple text-cream border-none w-full mt-4 hover:bg-purple-light hover:text-deep">Save
@@ -1317,45 +1414,47 @@
            DEFAULT DATA & LOCALSTORAGE
         ═══════════════════════════════ */
         const DEFAULT_DATA = {
-            groom: 'Vihaan', bride: 'Myra',
-            date: '2026-02-14', time: '18:00',
-            venue: 'The Grand Palace Hall', address: 'MG Road, City Center\nNew Delhi, India',
-            dressMen: 'Black Tie / Sherwani', dressWomen: 'Evening Gown / Saree', dressColors: 'Royal Purple, Gold, Deep Navy',
-            shuttle: 'Pickup from Hotel Le Meridien at 5:30 PM. Return shuttle at 11:30 PM.',
-            car: 'Valet parking available. Enter from Gate 3 on MG Road.',
-            metro: 'Nearest station: Rajiv Chowk (5 min walk)',
-            accomHotel: 'Hotel Le Meridien',
-            accomDetail: 'We have arranged a special rate for our guests. Use code VIHAANMYRA26 when booking.',
-            giftMsg: 'Your love and presence at our wedding is the greatest gift of all. However, if you wish to honour us with a gift, a contribution to our newlywed fund would be sincerely appreciated.',
-            bank: 'Account: Vihaan Sharma & Myra Kapoor\nIFSC: SBIN0001234 · A/C: 3827465019',
-            quote: '"And among His signs is that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between your hearts."',
+            groom: 'Amal', bride: 'Kallu',
+            date: '2026-06-21', time: '11:58',
+            venue: 'Contour Indraprastham Auditorium', address: 'Near Thirunakara Temple\nKottayam, Kerala, India',
+            dressMen: 'Traditional Mundu & Shirt', dressWomen: 'Saree / Traditional Wear', dressColors: 'Luxury Teal, Soft Cyan, Steel Blue, Cream',
+            shuttle: 'Complimentary pickup from Kottayam Railway Station at 11:00 AM. Return shuttle at 3:30 PM.',
+            car: 'Valet parking is available at the Contour Indraprastham Auditorium. Enter via Temple Road.',
+            metro: 'Nearest major transport hub: Kottayam KSRTC Bus Stand / Railway Station',
+            accomHotel: 'Contour Indraprastham Hotel',
+            accomDetail: 'We have arranged a special rate for our wedding guests. Use code AMALKALLU26 when booking.',
+            accomPhone: '+91 94970 87846',
+            accomDeadline: 'Book before June 1st for discounted rate',
+            giftMsg: 'Your presence and blessings on our special day are the greatest gifts. However, if you wish to honor us, a contribution to our newlywed journey would be warmly appreciated.',
+            bank: 'Account: Amal Chandrasekharan & Kallu Suresh\nIFSC: SBIN0070112 · A/C: 1029384756',
+            quote: '"Grow old along with me! The best is yet to be." — Robert Browning',
             sections: {
                 scratch: true, gallery: true, countdown: true, program: true,
                 venue: true, dresscode: true, prewedding: true, transport: true,
                 accommodation: true, gifts: true, rsvp: true
             },
             timeline: [
-                { time: '5:30 PM', title: 'Guest Arrival', desc: 'Welcome drinks and canapés' },
-                { time: '6:00 PM', title: 'Reception', desc: 'Meet and greet the families' },
-                { time: '7:00 PM', title: 'Wedding Ceremony', desc: 'Traditional vows and ring exchange' },
-                { time: '8:00 PM', title: 'Dinner', desc: 'Buffet dinner with live stations' },
-                { time: '9:30 PM', title: 'Entertainment', desc: 'Live music and dance performances' },
-                { time: '11:00 PM', title: 'Farewell', desc: 'Send-off with sparklers and blessings' }
+                { time: '11:00 AM', title: 'Guest Welcome', desc: 'Welcoming of guests at Contour Indraprastham Auditorium.' },
+                { time: '11:58 AM - 12:21 PM', title: 'Sacred Muhurtham', desc: 'The marriage vows and traditional tying of the knot.' },
+                { time: '12:30 PM Onwards', title: 'Traditional Sadhya', desc: 'A grand traditional wedding feast served on plantain leaves.' },
+                { time: '6:00 PM', title: 'Reception Begins', desc: 'Grand reception at Mar Baselious Mar Gregorios Hall, Thazhathangady.' },
+                { time: '7:30 PM', title: 'Dinner & Music', desc: 'Dinner served with live light music performances.' },
+                { time: '10:00 PM', title: 'Farewell', desc: 'Send-off with warm wishes and blessings.' }
             ],
             prewedding: [
-                { title: 'Mehndi', date: 'Feb 12', time: '4:00 PM', desc: 'An evening of henna, music and laughter at the Bride\'s residence.' },
-                { title: 'Sangeet', date: 'Feb 13', time: '7:00 PM', desc: 'A night of dance performances and celebrations at The Grand Palace Hall.' },
-                { title: 'Haldi', date: 'Feb 14', time: '10:00 AM', desc: 'A traditional ceremony with turmeric at the Groom\'s residence.' }
+                { title: 'Sangeet & Henna', date: 'June 19', time: '5:00 PM', desc: 'An evening of music, dance, and henna celebrations with friends.', image: 'media/The_couple_depicted_in_a_202605280825.jpeg' },
+                { title: 'Traditional Haldi', date: 'June 20', time: '10:00 AM', desc: 'The haldi purification ceremony at the couple\'s residences.', image: 'media/couple_standing.jpg' },
+                { title: 'Muhurtham Vows', date: 'June 21', time: '11:58 AM', desc: 'The main wedding ceremony and traditional feast.', image: 'media/Classic_\'save_the_date\'_photoshoot_202605280818.jpeg' }
             ]
         };
 
         function getData() {
-            try { const d = JSON.parse(localStorage.getItem('weddingData')); return d ? { ...DEFAULT_DATA, ...d, sections: { ...DEFAULT_DATA.sections, ...(d.sections || {}) } } : { ...DEFAULT_DATA }; }
+            try { const d = JSON.parse(localStorage.getItem('weddingData_ak')); return d ? { ...DEFAULT_DATA, ...d, sections: { ...DEFAULT_DATA.sections, ...(d.sections || {}) } } : { ...DEFAULT_DATA }; }
             catch { return { ...DEFAULT_DATA }; }
         }
-        function saveData(data) { localStorage.setItem('weddingData', JSON.stringify(data)); }
-        function getMessages() { try { return JSON.parse(localStorage.getItem('weddingMessages')) || []; } catch { return []; } }
-        function saveMessages(msgs) { localStorage.setItem('weddingMessages', JSON.stringify(msgs)); }
+        function saveData(data) { localStorage.setItem('weddingData_ak', JSON.stringify(data)); }
+        function getMessages() { try { return JSON.parse(localStorage.getItem('weddingMessages_ak')) || []; } catch { return []; } }
+        function saveMessages(msgs) { localStorage.setItem('weddingMessages_ak', JSON.stringify(msgs)); }
 
         /* ═══════════════════════════════
            RENDER PAGE FROM DATA
@@ -1400,9 +1499,9 @@
 
             // Accommodation
             document.getElementById('accomHotel').textContent = d.accomHotel;
-            document.getElementById('accomDetail').innerHTML = d.accomDetail.replace(/VIHAANMYRA26/g, '<span class="text-gold font-semibold">VIHAANMYRA26</span>');
-            document.getElementById('accomPhone').textContent = '+91 11 2389 1234';
-            document.getElementById('accomDeadline').textContent = 'Book before Jan 15th for discounted rate';
+            document.getElementById('accomDetail').innerHTML = d.accomDetail.replace(/AMALKALLU26/g, '<span class="text-gold font-semibold">AMALKALLU26</span>');
+            document.getElementById('accomPhone').textContent = d.accomPhone || '+91 94970 87846';
+            document.getElementById('accomDeadline').textContent = d.accomDeadline || 'Book before June 1st for discounted rate';
 
             // Gifts
             document.getElementById('giftMessage').textContent = d.giftMsg;
@@ -1445,21 +1544,18 @@
             });
             container.innerHTML = html;
             // Re-observe reveals
-            document.querySelectorAll('.reveal-el').forEach(el => {
-                if (!el.dataset.revealed) {
-                    gsap.to(el, {
-                        opacity: 1, y: 0, duration: .9, ease: 'power3.out',
-                        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
-                    });
-                    gsap.set(el, { opacity: 0, y: 35 });
-                }
-            });
+            initReveals();
         }
 
         function renderPreWedding(items) {
             const container = document.getElementById('preWeddingContainer');
             container.innerHTML = items.map(item => `
-    <div class="border border-purple/20 bg-purple/[.04] p-6 text-center reveal-el">
+    <div class="border border-purple/20 bg-purple/[.04] p-6 text-center reveal-el flex flex-col items-center">
+      ${item.image ? `
+      <div class="w-full h-44 mb-4 overflow-hidden border border-purple/10">
+        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+      </div>
+      ` : ''}
       <div class="font-vibez text-2xl text-gold mb-2">${item.title}</div>
       <div class="font-cinzel text-[.5rem] tracking-[.15em] uppercase text-purple-light mb-3">${item.date} · ${item.time}</div>
       <p class="text-[.82rem] text-purple-light/60 leading-relaxed">${item.desc}</p>
@@ -1522,15 +1618,32 @@
 
         // Reveal elements
         function initReveals() {
-            document.querySelectorAll('.reveal-el').forEach(el => {
-                if (el.dataset.revealed) return;
-                el.dataset.revealed = '1';
-                gsap.set(el, { opacity: 0, y: 35 });
-                gsap.to(el, {
-                    opacity: 1, y: 0, duration: .9, ease: 'power3.out',
-                    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+            if (window.motion) {
+                document.querySelectorAll('.reveal-el').forEach(el => {
+                    if (el.dataset.revealed) return;
+                    el.dataset.revealed = '1';
+                    motion.inView(el, (element) => {
+                        motion.animate(
+                            element.target,
+                            { opacity: 1, y: 0 },
+                            { 
+                                duration: 0.9, 
+                                easing: motion.spring({ stiffness: 100, damping: 20 }) 
+                            }
+                        );
+                    });
                 });
-            });
+            } else {
+                document.querySelectorAll('.reveal-el').forEach(el => {
+                    if (el.dataset.revealed) return;
+                    el.dataset.revealed = '1';
+                    gsap.set(el, { opacity: 0, y: 35 });
+                    gsap.to(el, {
+                        opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+                        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+                    });
+                });
+            }
         }
         initReveals();
 
@@ -1608,7 +1721,7 @@
                 if (checks > 10) {
                     const d = cx.getImageData(0, 0, c.width, c.height).data; let t = 0;
                     for (let i = 3; i < d.length; i += 16) if (d[i] === 0) t++;
-                    if (t / (d.length / 16) > .4) { cx.clearRect(0, 0, c.width, c.height); c.style.pointerEvents = 'none'; showToast('Date revealed! ✨'); }
+                    if (t / (d.length / 16) > .4) { cx.clearRect(0, 0, c.width, c.height); c.style.pointerEvents = 'none'; showToast('Date revealed! ✦'); }
                 }
             }
             c.addEventListener('mousedown', () => painting = true);
@@ -1636,16 +1749,109 @@
             saveMessages(msgs);
 
             document.getElementById('rsvpForm').reset();
-            showToast(attendance === 'attending' ? 'Thank you! See you there! 🎉' : 'We\'ll miss you! 💜');
+            showToast(attendance === 'attending' ? 'Thank you! See you there! ✦' : 'We\'ll miss you! ✦');
             renderRecentMessages();
         }
 
         /* ═══════════════════════════════
-           MUSIC TOGGLE
+           MUSIC TOGGLE WITH WEBAUDIO SYNTH
         ═══════════════════════════════ */
+        let isMusicPlaying = false;
+        let audioCtx = null;
+        let synthTimeoutId = null;
+
+        function startSynthesizer() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const delayNode = audioCtx.createDelay(2.0);
+                delayNode.delayTime.setValueAtTime(0.6, audioCtx.currentTime);
+                const feedbackNode = audioCtx.createGain();
+                feedbackNode.gain.setValueAtTime(0.35, audioCtx.currentTime);
+                
+                delayNode.connect(feedbackNode);
+                feedbackNode.connect(delayNode);
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(700, audioCtx.currentTime);
+
+                const mainGain = audioCtx.createGain();
+                mainGain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+
+                delayNode.connect(mainGain);
+                filter.connect(mainGain);
+                mainGain.connect(audioCtx.destination);
+
+                const chords = [
+                    [261.63, 329.63, 392.00, 493.88], // Cmaj7
+                    [196.00, 293.66, 392.00, 587.33], // Gsus4
+                    [174.61, 261.63, 349.23, 440.00], // Fmaj7
+                    [261.63, 329.63, 392.00, 523.25]  // C
+                ];
+
+                let chordIndex = 0;
+                function playNextChord() {
+                    if (!isMusicPlaying) return;
+                    const currentChord = chords[chordIndex];
+                    chordIndex = (chordIndex + 1) % chords.length;
+
+                    currentChord.forEach((freq, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const oscGain = audioCtx.createGain();
+                        
+                        osc.type = 'sine';
+                        const timeOffset = idx * 0.15;
+                        
+                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + timeOffset);
+
+                        oscGain.gain.setValueAtTime(0, audioCtx.currentTime + timeOffset);
+                        oscGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + timeOffset + 0.05);
+                        oscGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + timeOffset + 6.0);
+
+                        osc.connect(oscGain);
+                        oscGain.connect(filter);
+                        oscGain.connect(delayNode);
+                        
+                        osc.start(audioCtx.currentTime + timeOffset);
+                        osc.stop(audioCtx.currentTime + timeOffset + 6.2);
+                    });
+
+                    synthTimeoutId = setTimeout(playNextChord, 6500);
+                }
+
+                playNextChord();
+            } catch (err) {
+                console.error('Audio initialization failure:', err);
+            }
+        }
+
+        function stopSynthesizer() {
+            if (synthTimeoutId) {
+                clearTimeout(synthTimeoutId);
+                synthTimeoutId = null;
+            }
+            if (audioCtx) {
+                audioCtx.suspend();
+            }
+        }
+
         document.getElementById('musicBtn').addEventListener('click', function () {
-            this.classList.toggle('muted');
-            showToast(this.classList.contains('muted') ? 'Music muted' : 'Music playing ♪');
+            const isMuted = this.classList.toggle('muted');
+            if (!isMuted) {
+                isMusicPlaying = true;
+                startSynthesizer();
+                showToast('Ambient Wedding Harp online ♪');
+            } else {
+                isMusicPlaying = false;
+                stopSynthesizer();
+                showToast('Music muted');
+            }
         });
 
         /* ═══════════════════════════════
@@ -1701,6 +1907,8 @@
             document.getElementById('a-dressColors').value = d.dressColors;
             document.getElementById('a-accomHotel').value = d.accomHotel;
             document.getElementById('a-accomDetail').value = d.accomDetail;
+            document.getElementById('a-accomPhone').value = d.accomPhone || '+91 94970 87846';
+            document.getElementById('a-accomDeadline').value = d.accomDeadline || 'Book before June 1st for discounted rate';
             document.getElementById('a-giftMsg').value = d.giftMsg;
             document.getElementById('a-shuttle').value = d.shuttle;
             document.getElementById('a-car').value = d.car;
@@ -1736,12 +1944,14 @@
             d.metro = document.getElementById('a-metro').value;
             d.accomHotel = document.getElementById('a-accomHotel').value;
             d.accomDetail = document.getElementById('a-accomDetail').value;
+            d.accomPhone = document.getElementById('a-accomPhone').value;
+            d.accomDeadline = document.getElementById('a-accomDeadline').value;
             d.giftMsg = document.getElementById('a-giftMsg').value;
             d.bank = document.getElementById('a-bank').value;
             d.quote = document.getElementById('a-quote').value;
             saveData(d);
             renderPage();
-            showToast('Details saved! ✨');
+            showToast('Details saved! ✦');
         }
 
         function toggleSection(el) {
@@ -1791,7 +2001,7 @@
             }));
             saveData(d);
             renderPage();
-            showToast('Timeline saved! ✨');
+            showToast('Timeline saved! ✦');
         }
 
         function renderAdminMessages() {
@@ -1811,7 +2021,7 @@
         }
 
         function clearMessages() {
-            if (confirm('Delete all messages?')) { localStorage.removeItem('weddingMessages'); renderAdminMessages(); renderRecentMessages(); showToast('Messages cleared'); }
+            if (confirm('Delete all messages?')) { localStorage.removeItem('weddingMessages_ak'); renderAdminMessages(); renderRecentMessages(); showToast('Messages cleared'); }
         }
 
         /* ═══════════════════════════════
@@ -1821,10 +2031,47 @@
             a.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(a.getAttribute('href')); if (t) lenis.scrollTo(t, { offset: -60 }); });
         });
 
+        function initTiltAnimation() {
+            const tiltCard = document.getElementById('tilt-image-wrapper');
+            if (tiltCard) {
+                tiltCard.style.perspective = '1000px';
+                tiltCard.addEventListener('mousemove', (e) => {
+                    const rect = tiltCard.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -12;
+                    const rotateY = ((x - centerX) / centerX) * 12;
+
+                    gsap.to(tiltCard, {
+                        rotateX: rotateX,
+                        rotateY: rotateY,
+                        scale: 1.03,
+                        boxShadow: `0 20px 45px rgba(19, 181, 177, 0.25)`,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                tiltCard.addEventListener('mouseleave', () => {
+                    gsap.to(tiltCard, {
+                        rotateX: 0,
+                        rotateY: 0,
+                        scale: 1,
+                        boxShadow: `0 20px 60px rgba(0,0,0,.6)`,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    });
+                });
+            }
+        }
+
         /* ═══════════════════════════════
            INIT
         ═══════════════════════════════ */
         renderPage();
+        initTiltAnimation();
 
         // Keyboard shortcut: Ctrl+Shift+A for admin
         document.addEventListener('keydown', e => {

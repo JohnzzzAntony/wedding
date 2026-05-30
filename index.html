@@ -3,32 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aurelia & Maximillian // The Wedding Celebration</title>
+  <title>Amal & Kallu // The Wedding Celebration</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   
-  <!-- Icons & GSAP -->
+  <!-- Icons, GSAP & Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/motion@10.16.2/dist/motion.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
   
   <style>
     /* DESIGN SYSTEM */
     :root {
-      --color-bg: #07070a;
-      --color-card-bg: rgba(15, 14, 18, 0.6);
-      --color-card-border: rgba(212, 175, 55, 0.12);
+      --color-bg: #050507;
+      --color-card-bg: rgba(18, 16, 22, 0.65);
+      --color-card-border: rgba(212, 175, 55, 0.15);
       --color-text-primary: #f5f2eb;
       --color-text-secondary: rgba(245, 242, 235, 0.7);
       
       /* Dynamic properties customized by Admin */
-      --color-accent: #d4af37; /* Champagne Gold */
+      --color-accent: #d4af37; /* Gold */
       --color-accent-rgb: 212, 175, 55;
-      --color-accent-secondary: #c5a880; /* Rose Gold/Ivory */
-      --color-accent-secondary-rgb: 197, 168, 128;
+      --color-accent-secondary: #e8c96e; /* Champagne Gold */
+      --color-accent-secondary-rgb: 232, 201, 110;
       --font-display: 'Cinzel', serif;
       --font-body: 'Plus Jakarta Sans', sans-serif;
       --border-glow-intensity: 10px;
@@ -224,6 +226,11 @@
       position: relative;
       text-align: center;
       line-height: 1.4;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .splash-logo.animate {
       animation: pulseGlow 4s infinite ease-in-out;
     }
 
@@ -233,6 +240,11 @@
       letter-spacing: 0.25em;
       color: var(--color-accent);
       text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .splash-prompt.animate {
       animation: flashPrompt 2.5s infinite ease-in-out;
     }
 
@@ -1249,9 +1261,97 @@
         padding: 24px;
       }
     }
+
+    /* CUSTOM LUXURY CURSOR */
+    #custom-cursor-ring {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--color-accent);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 999999;
+      transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1), height 0.35s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.35s, border-color 0.35s;
+      mix-blend-mode: difference;
+      display: none;
+    }
+    #custom-cursor-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--color-accent-secondary);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 999999;
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      #custom-cursor-ring, #custom-cursor-dot {
+        display: block;
+      }
+      body, a, button, input, select, textarea, .glass-card, .btn-premium, .gallery-item {
+        cursor: none !important;
+      }
+    }
+
+    /* SEQUENCE CARDS & OVERLAYS */
+    #sequence-hero-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 850px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .sequence-text-card {
+      position: absolute;
+      z-index: 2;
+      opacity: 0;
+      max-width: 500px;
+      padding: 35px;
+      pointer-events: none;
+    }
+    #sequence-text-1 {
+      left: 10%;
+      top: 30%;
+    }
+    #sequence-text-2 {
+      right: 10%;
+      top: 30%;
+    }
+    #sequence-text-3 {
+      left: 50%;
+      top: 30%;
+      transform: translateX(-50%);
+      max-width: 600px;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      #sequence-text-1, #sequence-text-2, #sequence-text-3 {
+        left: 5% !important;
+        right: 5% !important;
+        top: 20% !important;
+        transform: none !important;
+        max-width: 90% !important;
+        width: 90% !important;
+        margin: 0 auto;
+      }
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
+
+  <!-- CUSTOM LUXURY CURSOR -->
+  <div id="custom-cursor-ring"></div>
+  <div id="custom-cursor-dot"></div>
 
   <!-- BACKGROUND GRID & STARFIELD -->
   <canvas id="ambient-canvas"></canvas>
@@ -1261,8 +1361,9 @@
 
   <!-- SPLASH COVER -->
   <div id="splash-cover" onclick="revealLandingPage()">
-    <div class="splash-logo gradient-text">AURELIA & MAXIMILLIAN</div>
-    <div class="splash-prompt">Tap to Open Invitation</div>
+    <canvas id="splash-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.45; filter: brightness(0.65) saturate(0.85); pointer-events: none;"></canvas>
+    <div class="splash-logo gradient-text" style="position: relative; z-index: 2;">AMAL & KALLU</div>
+    <div class="splash-prompt" style="position: relative; z-index: 2;">Tap to Open Invitation</div>
   </div>
 
   <!-- MAIN WEBSITE CONTENT -->
@@ -1274,7 +1375,7 @@
         <div class="logo-mark">
           <div class="logo-mark-inner"></div>
         </div>
-        <span class="logo-text gradient-text" id="logoText">A&M</span>
+        <span class="logo-text gradient-text" id="logoText">A&K</span>
       </div>
       <div class="nav-controls">
         <button class="control-btn" id="musicBtn" onclick="toggleAmbientMusic()" title="Toggle ambient music generator">
@@ -1283,12 +1384,51 @@
       </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section id="hero">
-      <div class="hero-eyebrow" id="heroEyebrow">YOU ARE CORDIALLY INVITED</div>
-      <h1 class="hero-title gradient-text" id="heroTitle">Aurelia & Maximillian</h1>
-      <p class="hero-desc" id="heroDesc">To celebrate our union of marriage on the eighteenth of December, two thousand twenty-six. A weekend of romance, fine dining, and beautiful moments.</p>
-      <a href="#scratch-section" class="btn-premium" id="heroCtaText">Reveal the Date</a>
+    <!-- SCROLL SEQUENCE INTRO CONTAINER (Merged with Hero) -->
+    <div id="scroll-sequence-container" style="position: relative; height: 500vh; background-color: #050507;">
+      <div id="scroll-sequence-sticky" style="position: sticky; top: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <canvas id="sequence-canvas" style="width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.85; filter: saturate(0.95);"></canvas>
+        
+        <!-- Interactive Overlay Hero -->
+        <div id="sequence-hero-overlay" style="z-index: 2;">
+          <div class="hero-eyebrow" id="heroEyebrow" style="margin-bottom: 24px;">YOU ARE CORDIALLY INVITED</div>
+          <h1 class="hero-title gradient-text" id="heroTitle" style="margin-bottom: 32px;">Amal & Kallu</h1>
+          <p class="hero-desc" id="heroDesc" style="margin-bottom: 48px;">To celebrate our union of marriage on Sunday, June 21, 2026. A wedding filled with love, tradition, and beautiful memories.</p>
+          <a href="#scratch-section" class="btn-premium" id="heroCtaText">Reveal the Date</a>
+        </div>
+
+        <!-- Interactive Overlay Text Cards -->
+        <div id="sequence-text-1" class="glass-card sequence-text-card">
+          <p class="section-subtitle" style="color: var(--color-accent); font-size: 0.8rem; margin-bottom: 8px;">THE HOSTS</p>
+          <h3 class="gradient-text" style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 12px; line-height: 1.3;">Mr. Chandrasekharan V. T & Mrs. Beena Chandrasekharan</h3>
+          <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6;">Vellackal house, Veloor PO., Kottayam. Request the honour of your esteemed presence and blessings on the auspicious marriage of our son Amal.</p>
+        </div>
+        
+        <div id="sequence-text-2" class="glass-card sequence-text-card">
+          <p class="section-subtitle" style="color: var(--color-accent); font-size: 0.8rem; margin-bottom: 8px;">THE BRIDE'S FAMILY</p>
+          <h3 class="gradient-text" style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 12px; line-height: 1.3;">D/o Mr. Suresh P. R & Mrs. Rejani Suresh</h3>
+          <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6;">Vattamattom (H), Kollad PO., Kottayam. We request your presence to bless the couple as they begin their beautiful journey together.</p>
+        </div>
+
+        <div id="sequence-text-3" class="glass-card sequence-text-card">
+          <p class="section-subtitle" style="color: var(--color-accent); font-size: 0.8rem; margin-bottom: 8px;">THE MUHURTHAM</p>
+          <h3 class="gradient-text" style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 12px; line-height: 1.3;">Sunday, June 21, 2026</h3>
+          <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6;">Muhurtham between 11:58 AM and 12:21 PM. Reception at Mar Baselious Mar Gregorios Orthodox Church Hall, Thazhathangady, from 6:00 PM to 10:00 PM.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOMENTS OF LOVE SECTION -->
+    <section id="moments-love-section" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 40px; padding: 100px 8%; background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.03));">
+      <div style="flex: 1; min-width: 300px; max-width: 500px; text-align: left;">
+        <p class="section-subtitle" style="margin-bottom: 12px; color: var(--color-accent);">THE BEGINNING OF FOREVER</p>
+        <h2 class="section-title gradient-text" style="font-size: 2.2rem; margin-bottom: 20px; text-transform: uppercase; text-align: left;">Moments of Love</h2>
+        <p style="margin-bottom: 24px; color: var(--color-text-secondary); line-height: 1.8;">Amal & Kallu invite you to embark on this journey with them. From our first meetup to this beautiful milestone, every moment has been filled with laughter, trust, and growing love. We are thrilled to celebrate our big day surrounded by our nearest and dearest.</p>
+        <a href="#about" class="btn-premium" style="padding: 12px 28px; font-size: 0.8rem;">Explore Details</a>
+      </div>
+      <div id="clip-image-wrapper" style="flex: 1; min-width: 300px; max-width: 550px; overflow: hidden; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid var(--color-card-border);">
+        <img src="media/A_cinematic,_wide-angle_shot_of_202605280825.jpeg" alt="Amal & Kallu Widescreen" style="width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.8s ease;">
+      </div>
     </section>
 
     <!-- SCRATCH CARD TO REVEAL DATE -->
@@ -1299,38 +1439,44 @@
       </div>
       <div class="scratch-wrapper">
         <div class="scratch-background">
-          <div class="scratch-date-text" id="scratchDateText">December 18, 2026</div>
-          <div class="scratch-details-text" id="scratchDetailsText">The Grand Chateau // 4:00 PM</div>
+          <div class="scratch-date-text" id="scratchDateText">June 21, 2026</div>
+          <div class="scratch-details-text" id="scratchDetailsText">Contour Indraprastham // Muhurtham: 11:58 AM - 12:21 PM</div>
         </div>
         <canvas id="scratch-canvas"></canvas>
       </div>
     </section>
 
     <!-- COUNTDOWN TIMER -->
-    <section id="countdown-section">
-      <div class="section-header">
+    <section id="countdown-section" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px;">
+      <div class="section-header" style="margin-bottom: 0;">
         <h2 class="section-title gradient-text" id="countdownTitle">Counting Down to Forever</h2>
         <p class="section-subtitle" id="countdownSubtitle">Time Remaining Until the Vows</p>
       </div>
-      <div class="countdown-container">
-        <div class="countdown-card glass-card" id="cardDays">
-          <span class="countdown-val">00</span>
-          <span class="countdown-lbl">Days</span>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 40px; width: 100%; max-width: 1100px;">
+        <div id="tilt-image-wrapper" class="glass-card" style="width: 320px; height: 380px; overflow: hidden; border-radius: 20px; cursor: pointer; padding: 10px;">
+          <img src="media/A_detailed_charcoal_and_graphite_202605280825.jpeg" alt="Charcoal Portrait" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
         </div>
-        <div class="countdown-card glass-card" id="cardHours">
-          <span class="countdown-val">00</span>
-          <span class="countdown-lbl">Hours</span>
-        </div>
-        <div class="countdown-card glass-card" id="cardMinutes">
-          <span class="countdown-val">00</span>
-          <span class="countdown-lbl">Minutes</span>
-        </div>
-        <div class="countdown-card glass-card" id="cardSeconds">
-          <span class="countdown-val">00</span>
-          <span class="countdown-lbl">Seconds</span>
+        <div class="countdown-container">
+          <div class="countdown-card glass-card" id="cardDays">
+            <span class="countdown-val">00</span>
+            <span class="countdown-lbl">Days</span>
+          </div>
+          <div class="countdown-card glass-card" id="cardHours">
+            <span class="countdown-val">00</span>
+            <span class="countdown-lbl">Hours</span>
+          </div>
+          <div class="countdown-card glass-card" id="cardMinutes">
+            <span class="countdown-val">00</span>
+            <span class="countdown-lbl">Minutes</span>
+          </div>
+          <div class="countdown-card glass-card" id="cardSeconds">
+            <span class="countdown-val">00</span>
+            <span class="countdown-lbl">Seconds</span>
+          </div>
         </div>
       </div>
     </section>
+
 
     <!-- ABOUT SECTION (BENTO GRID) -->
     <section id="about">
@@ -1393,7 +1539,7 @@
       <div class="social-links" id="socialLinksContainer">
         <!-- Dynamically rendered via JS -->
       </div>
-      <p class="footer-copyright" id="footerText">&copy; 2026 AURELIA & MAXIMILLIAN. MADE WITH ELEGANCE.</p>
+      <p class="footer-copyright" id="footerText">&copy; 2026 AMAL & KALLU. MADE WITH ELEGANCE.</p>
     </footer>
 
   </div>
@@ -1703,7 +1849,7 @@
     const DEFAULT_CONFIG = {
       styles: {
         accentColor: '#d4af37',
-        accentSecondary: '#c5a880',
+        accentSecondary: '#e8c96e',
         fontDisplay: "'Cinzel', serif",
         glowRadius: '10px'
       },
@@ -1719,24 +1865,24 @@
       },
       content: {
         navigation: {
-          logoText: 'A&M'
+          logoText: 'A&K'
         },
         hero: {
           eyebrow: 'YOU ARE CORDIALLY INVITED',
-          title: 'Aurelia & Maximillian',
-          desc: 'To celebrate our union of marriage on the eighteenth of December, two thousand twenty-six. A weekend of romance, fine dining, and beautiful moments.',
+          title: 'Amal & Kallu',
+          desc: 'To celebrate our union of marriage on Sunday, June 21, 2026. A wedding filled with love, tradition, and beautiful moments.',
           ctaText: 'Reveal the Date'
         },
         scratch: {
           title: 'A Hidden Moment',
           subtitle: 'Scratch Card to Unveil the Event Date',
-          dateText: 'December 18, 2026',
-          detailsText: 'The Grand Chateau // 4:00 PM'
+          dateText: 'June 21, 2026',
+          detailsText: 'Contour Indraprastham // Muhurtham: 11:58 AM - 12:21 PM'
         },
         countdown: {
           title: 'Counting Down to Forever',
           subtitle: 'Time Remaining Until the Vows',
-          targetDate: '2026-12-18T16:00:00'
+          targetDate: '2026-06-21T11:58:00'
         },
         about: {
           title: 'The Celebration Details',
@@ -1745,78 +1891,84 @@
             { 
               icon: 'fa-solid fa-place-of-worship', 
               title: 'The Venue', 
-              desc: 'The Grand Chateau Estate, 100 Royal Canopy Blvd. An architectural masterpiece surrounded by lush valley gardens.', 
+              desc: 'Contour Indraprastham Auditorium, Near Thirunakara Temple, Kottayam. Join us as we exchange our sacred vows.', 
               width: 'bento-col-8',
-              mapUrl: 'https://maps.google.com'
+              mapUrl: 'https://maps.google.com/?q=Contour+Indraprastham+Auditorium+Kottayam'
             },
             { 
               icon: 'fa-solid fa-user-tie', 
               title: 'Dress Code', 
-              desc: 'Formal Black Tie attire. We invite our guests to wear warm champagne, emerald, or rich gold hues.', 
+              desc: 'Formal traditional attire. We invite our guests to celebrate with us in elegant traditional wear.', 
               width: 'bento-col-4',
-              sampleImage: 'https://images.unsplash.com/photo-1594744803329-e58b31de215f?q=80&w=600&auto=format&fit=crop'
+              sampleImage: './couple_standing.jpg'
             },
             { 
-              icon: 'fa-solid fa-hotel', 
-              title: 'Accommodations', 
-              desc: 'Reserved guest suites at Chateau Mansion. Shuttle services provided between properties.', 
+              icon: 'fa-solid fa-bell', 
+              title: 'Muhurtham', 
+              desc: 'The auspicious Muhurtham ceremony is scheduled between 11:58 AM and 12:21 PM on Sunday, June 21, 2026.', 
               width: 'bento-col-4',
-              mapUrl: 'https://maps.google.com'
+              mapUrl: '#'
             },
             { 
               icon: 'fa-solid fa-gift', 
-              title: 'Gift Registry', 
-              desc: 'Your warm presence is our greatest present. For loved ones wishing to contribute, a digital gift registry link is available here.', 
+              title: 'Best Compliments', 
+              desc: 'Your warm presence and blessings are our greatest gifts. Best compliments from friends and relatives.', 
               width: 'bento-col-8',
               mapUrl: '#'
             }
           ]
         },
         features: {
-          title: 'Guest Conveniences',
-          subtitle: 'Registry & Logistics',
+          title: 'Wedding Events',
+          subtitle: 'Logistics & Details',
           cards: [
-            { icon: 'fa-solid fa-utensils', title: 'Fine Dining & Banquet', desc: 'A curated multi-course culinary experience designed by Michelin chefs, featuring estate wines.' },
-            { icon: 'fa-solid fa-music', title: 'Harmonious Melodies', desc: 'Live performances by classical harpists followed by electronic orchestra soundscapes in the Ballroom.' },
-            { icon: 'fa-solid fa-route', title: 'Valet & Transports', desc: 'Complimentary private chauffeur service to and from designated regional airport hubs.' }
+            { icon: 'fa-solid fa-ring', title: 'Holy Matrimony & Muhurtham', desc: 'The traditional wedding ceremony will take place at Contour Indraprastham Auditorium in Kottayam.' },
+            { icon: 'fa-solid fa-church', title: 'Reception Celebration', desc: 'A grand reception will follow at Mar Baselious Mar Gregorios Orthodox Church Parish Hall, Thazhathangady, from 6:00 PM to 10:00 PM.' },
+            { icon: 'fa-solid fa-phone', title: 'Contact / RSVP Support', desc: 'For details, reach us at: Mr. Chandrasekharan V. T (9497087846) or Vellackal house, Kottayam.' }
           ]
         },
         gallery: {
           title: 'Our Story in Frames',
           subtitle: 'A Love Story Visualized',
           cards: [
-            { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop', title: 'The Engagement Meadow', category: 'Autumn Memories' },
-            { image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600&auto=format&fit=crop', title: 'Lakeside Reflections', category: 'Summer Sanctuary' },
-            { image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop', title: 'A Walk Under Gold Leaves', category: 'Fall Adventure' }
+            { image: 'media/couple_portrait.jpg', title: 'Amal & Kallu', category: 'Pre-Wedding Portrait' },
+            { image: 'media/couple_standing.jpg', title: 'Traditional Elegance', category: 'Traditional Wear' },
+            { image: 'media/A_romantic_photorealistic_scene_of_202605280824.jpeg', title: 'Romantic Gazes', category: 'Portraits' },
+            { image: 'media/Classic_\'save_the_date\'_photoshoot_202605280818.jpeg', title: 'Save The Date Shoot', category: 'Pre-Wedding' },
+            { image: 'media/A_cinematic,_wide-angle_shot_of_202605280825.jpeg', title: 'Cinematic Moments', category: 'Outdoor' },
+            { image: 'media/The_couple_depicted_in_a_202605280825.jpeg', title: 'Ethereal Connection', category: 'Artistic' },
+            { image: 'media/Impressionist_oil_painting_style._The_202605280813.jpeg', title: 'Impressionist Oil Art', category: 'Paintings' },
+            { image: 'media/Dramatic_charcoal_sketch_style._The_202605280813.jpeg', title: 'Charcoal Sketch Portrait', category: 'Sketches' },
+            { image: 'media/A_detailed_charcoal_and_graphite_202605280825.jpeg', title: 'Graphite Portrait details', category: 'Fine Art' },
+            { image: 'media/Replace_the_background_with_a_202605280812.jpeg', title: 'Enchanted Garden', category: 'Fantasy Theme' }
           ]
         },
         timeline: {
           title: 'The Wedding Day',
           subtitle: 'Schedule of Events',
           items: [
-            { time: '16:00 // Ceremony Begins', heading: 'Sacred Vows', desc: 'Join us at the Garden Rotunda as we exchange rings and swear eternal vows.' },
-            { time: '17:00 // Toasting & Apertifs', heading: 'Cocktail Hour', desc: 'Enjoy Champagne selections and handcrafted cocktails on the glass-walled Chateau veranda.' },
-            { time: '18:30 // Reception Banquet', heading: 'The Grand Dinner', desc: 'A seated multi-course dinner paired with vintage harvests followed by reception toasts.' },
-            { time: '21:00 // Dancing & Merriment', heading: 'Late Night Ball', desc: 'Dance under the stars, followed by a sparkling fireworks countdown at midnight.' }
+            { time: '11:58 AM - 12:21 PM', heading: 'Sacred Muhurtham', desc: 'Join us at Contour Indraprastham Auditorium, Kottayam, for the wedding ceremony.' },
+            { time: '12:30 PM Onwards', heading: 'Traditional Wedding Feast', desc: 'A traditional wedding lunch (Sadhya) will be served to all guests at the auditorium.' },
+            { time: '6:00 PM - 10:00 PM', heading: 'Grand Wedding Reception', desc: 'Celebrate with us at Mar Baselious Mar Gregorios Orthodox Church Parish Hall, Thazhathangady.' }
           ]
         },
         cta: {
           title: 'Kindly Respond',
-          desc: 'Please RSVP by October 1st, 2026. Let us know your attendance and dietary selections below.',
+          desc: 'Please RSVP by June 1st, 2026. Let us know if you can join us for our special day.',
           ctaBtnText: 'RSVP Attendance'
         },
         footer: {
-          copyright: '© 2026 AURELIA & MAXIMILLIAN. MADE WITH ELEGANCE.',
+          copyright: '© 2026 AMAL & KALLU. ALL RIGHTS RESERVED.',
           socials: [
-            { icon: 'fa-brands fa-pinterest', link: '#' },
-            { icon: 'fa-solid fa-envelope', link: 'mailto:rsvp@aurelia-maximillian.com' },
-            { icon: 'fa-solid fa-location-dot', link: '#' }
+            { icon: 'fa-solid fa-phone', link: 'tel:9497087846' },
+            { icon: 'fa-solid fa-envelope', link: 'mailto:info@amalwithkallu.com' },
+            { icon: 'fa-solid fa-location-dot', link: 'https://maps.google.com/?q=Contour+Indraprastham+Auditorium+Kottayam' }
           ]
         }
       }
     };
 
-    let config = JSON.parse(localStorage.getItem('premium_landing_config')) || JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+    let config = JSON.parse(localStorage.getItem('premium_landing_config_ak')) || JSON.parse(JSON.stringify(DEFAULT_CONFIG));
 
     // Check URL query parameters or hash to trigger admin panel access
     function checkAdminAccess() {
@@ -1978,6 +2130,7 @@
       applyStyles();
       applySections();
       setupScratchCard();
+      initSplitText();
     }
 
     /* APPLY DESIGN SYSTEM VARIABLES */
@@ -1992,7 +2145,7 @@
     }
 
     function applySections() {
-      document.getElementById('hero').style.display = config.visibility.hero ? 'flex' : 'none';
+      document.getElementById('sequence-hero-overlay').style.display = config.visibility.hero ? 'flex' : 'none';
       document.getElementById('scratch-section').style.display = config.visibility.scratch ? 'flex' : 'none';
       document.getElementById('countdown-section').style.display = config.visibility.countdown ? 'flex' : 'none';
       document.getElementById('about').style.display = config.visibility.about ? 'block' : 'none';
@@ -2011,24 +2164,238 @@
       return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
     }
 
+    // Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Stop scroll initially until splash screen is tapped
+    lenis.stop();
+
+    // Custom Luxury Cursor Follow Logic
+    const cursorRing = document.getElementById('custom-cursor-ring');
+    const cursorDot = document.getElementById('custom-cursor-dot');
+
+    if (cursorRing && cursorDot) {
+      let mouseX = 0, mouseY = 0;
+      let ringX = 0, ringY = 0;
+      let dotX = 0, dotY = 0;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animateCursor() {
+        dotX += (mouseX - dotX) * 0.3;
+        dotY += (mouseY - dotY) * 0.3;
+        cursorDot.style.left = `${dotX}px`;
+        cursorDot.style.top = `${dotY}px`;
+
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      // Event delegation for dynamic cursor expansion hovers
+      document.addEventListener('mouseover', (e) => {
+        const target = e.target.closest('a, button, input, select, textarea, .glass-card, .gallery-item, .countdown-card, .logo-container, .bento-icon-btn, .social-icon');
+        if (target) {
+          cursorRing.style.width = '65px';
+          cursorRing.style.height = '65px';
+          cursorRing.style.borderColor = 'var(--color-accent-secondary)';
+          cursorRing.style.backgroundColor = 'rgba(var(--color-accent-rgb), 0.05)';
+        }
+      });
+
+      document.addEventListener('mouseout', (e) => {
+        const target = e.target.closest('a, button, input, select, textarea, .glass-card, .gallery-item, .countdown-card, .logo-container, .bento-icon-btn, .social-icon');
+        if (target) {
+          cursorRing.style.width = '40px';
+          cursorRing.style.height = '40px';
+          cursorRing.style.borderColor = 'var(--color-accent)';
+          cursorRing.style.backgroundColor = 'transparent';
+        }
+      });
+    }
+
+    // Magnetic Button Pull Interaction
+    document.addEventListener('mousemove', (e) => {
+      const btn = e.target.closest('.btn-premium, .control-btn, .bento-icon-btn, .social-icon');
+      if (btn) {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        gsap.to(btn, {
+          x: x * 0.35,
+          y: y * 0.35,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const btn = e.target.closest('.btn-premium, .control-btn, .bento-icon-btn, .social-icon');
+      if (btn) {
+        gsap.to(btn, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: 'elastic.out(1, 0.3)'
+        });
+      }
+    });
+
+    /* SPLASH COVER AUTO-PLAY ANIMATION (Wedding Shoot Sequence) */
+    function initSplashAnimation() {
+      const canvas = document.getElementById('splash-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const startFrame = 241;
+      const endFrame = 300;
+      const images = [];
+      let currentFrame = startFrame;
+      let animFrameId = null;
+
+      // Helper to generate padded filename path targeting the wed directory
+      const getFramePath = (index) => {
+        return `wed/ezgif-frame-${index}.png`;
+      };
+
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+      }
+
+      function drawImageProp(context, img, x = 0, y = 0, w = context.canvas.width / (window.devicePixelRatio || 1), h = context.canvas.height / (window.devicePixelRatio || 1), offsetX = 0.5, offsetY = 0.5) {
+        const iw = img.width, ih = img.height;
+        const r = Math.max(w / iw, h / ih);
+        const cw = w / r;
+        const ch = h / r;
+        const cx = (iw - cw) * offsetX;
+        const cy = (ih - ch) * offsetY;
+        context.drawImage(img, cx, cy, cw, ch, x, y, w, h);
+      }
+
+      // Preload splash frames
+      for (let i = startFrame; i <= endFrame; i++) {
+        const img = new Image();
+        img.src = getFramePath(i);
+        images[i] = img;
+      }
+
+      // Start auto-play loop (approx 20 fps for organic feel)
+      let lastTime = 0;
+      const fps = 20;
+      const interval = 1000 / fps;
+
+      function renderLoop(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const elapsed = timestamp - lastTime;
+
+        if (elapsed > interval) {
+          lastTime = timestamp - (elapsed % interval);
+          
+          const img = images[currentFrame];
+          if (img && img.complete) {
+            ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+            drawImageProp(ctx, img, 0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+            
+            if (currentFrame === endFrame) {
+              // Stop the animation loop on the last frame
+              window.stopSplashAnimation();
+              
+              // Fade in the couple's name and tap to open
+              gsap.to('.splash-logo', { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out', onComplete: () => {
+                const logoEl = document.querySelector('.splash-logo');
+                if (logoEl) logoEl.classList.add('animate');
+              } });
+              
+              gsap.to('.splash-prompt', { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out', delay: 0.3, onComplete: () => {
+                const promptEl = document.querySelector('.splash-prompt');
+                if (promptEl) promptEl.classList.add('animate');
+              } });
+              
+              return;
+            }
+            currentFrame++;
+          }
+        }
+        animFrameId = requestAnimationFrame(renderLoop);
+      }
+
+      // Stop animation once landing page is revealed
+      window.stopSplashAnimation = () => {
+        if (animFrameId) {
+          cancelAnimationFrame(animFrameId);
+          animFrameId = null;
+          images.length = 0; // release frame data from memory
+        }
+      };
+
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+      requestAnimationFrame(renderLoop);
+    }
+
     /* REVEAL SEQUENCE */
     function revealLandingPage() {
       const splash = document.getElementById('splash-cover');
       const content = document.getElementById('main-content');
       
-      splash.classList.add('hidden');
+      // Stop the auto-playing splash animation to free memory
+      if (typeof window.stopSplashAnimation === 'function') {
+        window.stopSplashAnimation();
+      }
+
+      // Cinematic slide up and fade reveal
+      gsap.to(splash, {
+        opacity: 0,
+        yPercent: -100,
+        duration: 1.4,
+        ease: 'power4.inOut',
+        onComplete: () => {
+          splash.style.display = 'none';
+        }
+      });
+
       content.classList.add('visible');
+      lenis.start();
 
       if (isMusicPlaying) {
         startSynthesizer();
       }
       
-      gsap.from('.hero-eyebrow', { opacity: 0, y: 30, duration: 1.2, delay: 0.5, ease: 'power4.out' });
-      gsap.from('.hero-title', { opacity: 0, y: 40, duration: 1.5, delay: 0.7, ease: 'power4.out' });
-      gsap.from('.hero-desc', { opacity: 0, y: 30, duration: 1.2, delay: 0.9, ease: 'power4.out' });
-      gsap.from('.btn-premium', { opacity: 0, scale: 0.95, duration: 0.9, delay: 1.1, ease: 'back.out(1.5)' });
+      // Staggered reveals for the merged Hero scroll sequence landing
+      gsap.from('#sequence-hero-overlay .hero-eyebrow', { opacity: 0, y: 30, duration: 1.2, delay: 0.5, ease: 'power4.out' });
+      gsap.from('#sequence-hero-overlay .hero-title', { opacity: 0, y: 40, duration: 1.5, delay: 0.7, ease: 'power4.out' });
+      gsap.from('#sequence-hero-overlay .hero-desc', { opacity: 0, y: 30, duration: 1.2, delay: 0.9, ease: 'power4.out' });
+      gsap.from('#sequence-hero-overlay .btn-premium', { opacity: 0, scale: 0.95, duration: 0.9, delay: 1.1, ease: 'back.out(1.5)' });
       
-      gsap.utils.toArray('.glass-card').forEach(card => {
+      // Staggered trigger for standard glass cards (excluding the scroll sequence texts)
+      gsap.utils.toArray('.glass-card:not(.sequence-text-card)').forEach(card => {
         gsap.from(card, {
           scrollTrigger: {
             trigger: card,
@@ -2678,7 +3045,7 @@
     /* ACTIONS: SAVE, RESET */
     function saveAdminData() {
       applyChangesWithoutSave();
-      localStorage.setItem('premium_landing_config', JSON.stringify(config));
+      localStorage.setItem('premium_landing_config_ak', JSON.stringify(config));
       showToast('Invitation changes persisted successfully');
       closeAdmin();
     }
@@ -2686,7 +3053,7 @@
     function resetConfig() {
       if (confirm('Revert all invitation text and colors to defaults?')) {
         config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
-        localStorage.removeItem('premium_landing_config');
+        localStorage.removeItem('premium_landing_config_ak');
         renderPage();
         populateAdminFields();
         initCountdown();
@@ -2701,11 +3068,275 @@
       event.target.reset();
     }
 
+
+
+    // Letter splitting helper to stagger characters dynamically on scroll
+    function initSplitText() {
+      const targets = document.querySelectorAll('#sequence-hero-overlay .hero-title, #sequence-text-1 h3, #sequence-text-2 h3, #sequence-text-3 h3');
+      targets.forEach(target => {
+        const text = target.innerText;
+        target.innerHTML = '';
+        
+        // Split text by characters and wrap in styled spans
+        [...text].forEach((char) => {
+          const span = document.createElement('span');
+          span.style.display = 'inline-block';
+          span.style.opacity = '0';
+          span.style.transform = 'translateY(20px) rotate(8deg)';
+          span.style.filter = 'blur(3px)';
+          span.style.transition = 'none'; // prevent native transition from interfering with GSAP
+          span.innerHTML = char === ' ' ? '&nbsp;' : char;
+          target.appendChild(span);
+        });
+      });
+    }
+
+    /* CANVAS SCROLL SEQUENCE ENGINE */
+    function initScrollSequence() {
+      const canvas = document.getElementById('sequence-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const container = document.getElementById('scroll-sequence-container');
+
+      const frameCount = 300;
+      const images = [];
+      const frameIndexObj = { frame: 1 };
+
+      // Helper to generate padded filename path targeting the frame directory
+      const getFramePath = (index) => {
+        const paddedIndex = index.toString().padStart(3, '0');
+        return `frame/ezgif-frame-${paddedIndex}.png`;
+      };
+
+      // Set canvas dimensions with Aspect Ratio Fit
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        renderFrame(frameIndexObj.frame);
+      }
+      function drawImageProp(context, img, x = 0, y = 0, w = context.canvas.width / (window.devicePixelRatio || 1), h = context.canvas.height / (window.devicePixelRatio || 1), offsetX = 0.5, offsetY = 0.5) {
+        const iw = img.width, ih = img.height;
+        const r = Math.max(w / iw, h / ih);
+        const cw = w / r;
+        const ch = h / r;
+        const cx = (iw - cw) * offsetX;
+        const cy = (ih - ch) * offsetY;
+        context.drawImage(img, cx, cy, cw, ch, x, y, w, h);
+      }
+
+      function renderFrame(index) {
+        if (index < 1 || index > frameCount) return;
+        const img = images[index];
+        if (img && img.complete) {
+          ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+          drawImageProp(ctx, img, 0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+        } else {
+          loadFrame(index, () => {
+            if (Math.round(frameIndexObj.frame) === index) {
+              const currentImg = images[index];
+              if (currentImg) {
+                ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+                drawImageProp(ctx, currentImg, 0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+              }
+            }
+          });
+        }
+      }
+
+      function loadFrame(index, callback) {
+        if (index < 1 || index > frameCount) return;
+        if (images[index]) {
+          if (images[index].complete && callback) callback();
+          return;
+        }
+
+        const img = new Image();
+        img.src = getFramePath(index);
+        images[index] = img;
+        img.onload = () => {
+          if (callback) callback();
+          preloadAdjacent(index);
+        };
+      }
+
+      function preloadAdjacent(index) {
+        const lookahead = 6;
+        for (let i = 1; i <= lookahead; i++) {
+          const next = index + i;
+          const prev = index - i;
+          if (next <= frameCount && !images[next]) {
+            images[next] = new Image();
+            images[next].src = getFramePath(next);
+          }
+          if (prev >= 1 && !images[prev]) {
+            images[prev] = new Image();
+            images[prev].src = getFramePath(prev);
+          }
+        }
+      }
+
+      // Preload initial frames (first frame, middle, end, and steps)
+      loadFrame(1, () => {
+        renderFrame(1);
+      });
+      
+      // Load key frames to make scrubbing feel fast initially
+      for (let i = 1; i <= frameCount; i += 12) {
+        loadFrame(i);
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      // GSAP ScrollTrigger to bind frames to scrollbar
+      gsap.to(frameIndexObj, {
+        frame: frameCount,
+        snap: "frame",
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.1,
+          onUpdate: () => {
+            const currentIdx = Math.round(frameIndexObj.frame);
+            renderFrame(currentIdx);
+            
+            // Sync overlays precisely with frame quarters
+            let activeCard = 0; // 0 = Hero
+            if (currentIdx > 75 && currentIdx <= 150) activeCard = 1; // 1 = Hosts
+            else if (currentIdx > 150 && currentIdx <= 225) activeCard = 2; // 2 = Bride
+            else if (currentIdx > 225) activeCard = 3; // 3 = Muhurtham
+            
+            updateOverlayCards(activeCard);
+          }
+        }
+      });
+
+      // Set initial states in GSAP to ensure clean overlay animations
+      gsap.set("#sequence-text-1", { opacity: 0, y: 60, pointerEvents: 'none' });
+      gsap.set("#sequence-text-2", { opacity: 0, y: 60, pointerEvents: 'none' });
+      gsap.set("#sequence-text-3", { opacity: 0, y: 60, xPercent: -50, pointerEvents: 'none' });
+      gsap.set("#sequence-text-1 h3 span, #sequence-text-2 h3 span, #sequence-text-3 h3 span", { opacity: 0, y: 20, rotate: 8, filter: 'blur(3px)' });
+
+      // Core controller to transition overlay cards smoothly when crossing frame boundaries
+      let lastActiveCard = -1;
+      function updateOverlayCards(activeIndex) {
+        if (activeIndex === lastActiveCard) return;
+        lastActiveCard = activeIndex;
+
+        const cards = [
+          { id: '#sequence-hero-overlay', spans: null },
+          { id: '#sequence-text-1', spans: '#sequence-text-1 h3 span' },
+          { id: '#sequence-text-2', spans: '#sequence-text-2 h3 span' },
+          { id: '#sequence-text-3', spans: '#sequence-text-3 h3 span' }
+        ];
+
+        cards.forEach((card, idx) => {
+          if (idx === activeIndex) {
+            // Fade in card and enable pointer events
+            gsap.to(card.id, { opacity: 1, y: 0, pointerEvents: 'auto', duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+            if (card.id === '#sequence-hero-overlay') {
+              const heroSpans = document.querySelectorAll('#sequence-hero-overlay .hero-title span');
+              gsap.to(heroSpans, { opacity: 1, y: 0, rotate: 0, filter: 'blur(0px)', duration: 0.6, stagger: 0.02, ease: 'power2.out', overwrite: 'auto' });
+            } else if (card.spans) {
+              gsap.to(card.spans, { opacity: 1, y: 0, rotate: 0, filter: 'blur(0px)', duration: 0.5, stagger: 0.015, ease: 'power2.out', overwrite: 'auto' });
+            }
+          } else {
+            // Fade out card and disable pointer events to prevent blocking clicks
+            gsap.to(card.id, { opacity: 0, y: -40, pointerEvents: 'none', duration: 0.5, ease: 'power2.in', overwrite: 'auto' });
+            if (card.id === '#sequence-hero-overlay') {
+              const heroSpans = document.querySelectorAll('#sequence-hero-overlay .hero-title span');
+              gsap.to(heroSpans, { opacity: 0, y: 20, rotate: 8, filter: 'blur(3px)', duration: 0.4, ease: 'power2.in', overwrite: 'auto' });
+            } else if (card.spans) {
+              gsap.to(card.spans, { opacity: 0, y: 20, rotate: 8, filter: 'blur(3px)', duration: 0.4, ease: 'power2.in', overwrite: 'auto' });
+            }
+          }
+        });
+      }
+    }
+
+    /* CUSTOM GSAP & MOUSE INTERACTION SYSTEM */
+    function initAnimations() {
+      // 1. Clip path reveal in moments section
+      gsap.fromTo('#clip-image-wrapper img', 
+        { clipPath: 'circle(0% at 50% 50%)', scale: 1.25 },
+        { 
+          clipPath: 'circle(100% at 50% 50%)', 
+          scale: 1.0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#moments-love-section',
+            start: 'top 80%',
+            end: 'bottom 50%',
+            scrub: true
+          }
+        }
+      );
+
+      // 2. 3D Tilt interaction on Countdown card
+      const tiltCard = document.getElementById('tilt-image-wrapper');
+      if (tiltCard) {
+        tiltCard.style.perspective = '1000px';
+        tiltCard.addEventListener('mousemove', (e) => {
+          const rect = tiltCard.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = ((y - centerY) / centerY) * -12; 
+          const rotateY = ((x - centerX) / centerX) * 12;
+
+          gsap.to(tiltCard, {
+            rotateX: rotateX,
+            rotateY: rotateY,
+            scale: 1.03,
+            boxShadow: `0 20px 40px rgba(212, 175, 55, 0.25)`,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+
+        tiltCard.addEventListener('mouseleave', () => {
+          gsap.to(tiltCard, {
+            rotateX: 0,
+            rotateY: 0,
+            scale: 1,
+            boxShadow: `0 10px 30px rgba(0,0,0,0.5)`,
+            duration: 0.6,
+            ease: 'power2.out'
+          });
+        });
+      }
+
+      // 3. Motion One (Framer Motion equivalent) spring reveals for cards
+      if (window.motion) {
+        motion.inView(".glass-card, .feature-card, .timeline-content", (element) => {
+          motion.animate(
+            element.target,
+            { opacity: [0, 1], y: [60, 0] },
+            { 
+              duration: 0.9, 
+              easing: motion.spring({ stiffness: 100, damping: 22 })
+            }
+          );
+        });
+      }
+    }
+
     /* INITS */
+    initSplashAnimation();
     initCanvas();
     animateParticles();
     renderPage();
     initCountdown();
+    initScrollSequence();
+    initAnimations();
   </script>
 </body>
 </html>

@@ -1,0 +1,5 @@
+# Large zip archives
+*.zip
+
+# Unused frame directories
+Casual/
