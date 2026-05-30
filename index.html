@@ -1296,53 +1296,138 @@
       }
     }
 
-    /* SEQUENCE CARDS & OVERLAYS */
-    #sequence-hero-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      max-width: 850px;
-      text-align: center;
+    /* NEW HERO & PHOTO COLLAGE STYLE */
+    #hero-section {
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 150px 8% 80px 8%;
+      position: relative;
+      background-color: var(--color-bg);
+      overflow: hidden;
+      z-index: 10;
+    }
+    
+    .hero-content-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .hero-text-pane {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       z-index: 2;
     }
-    .sequence-text-card {
-      position: absolute;
+
+    .hero-collage-pane {
+      position: relative;
       z-index: 2;
-      opacity: 0;
-      max-width: 500px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 15px;
+      width: 100%;
+      height: 520px;
+    }
+    
+    .collage-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--color-card-border);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s, box-shadow 0.45s;
+    }
+    
+    .collage-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .collage-item:hover {
+      transform: scale(1.06) rotate(0deg) !important;
+      z-index: 10 !important;
+      border-color: var(--color-accent);
+      box-shadow: 0 20px 45px rgba(var(--color-accent-rgb), 0.25), 0 0 15px rgba(var(--color-accent-rgb), 0.15);
+    }
+    
+    .c-item-1 {
+      grid-column: 1 / 4;
+      grid-row: 1 / 4;
+      transform: rotate(-2deg);
+    }
+    
+    .c-item-2 {
+      grid-column: 4 / 7;
+      grid-row: 1 / 3;
+      transform: rotate(2deg);
+    }
+    
+    .c-item-3 {
+      grid-column: 2 / 5;
+      grid-row: 4 / 7;
+      transform: rotate(-1deg);
+    }
+    
+    .c-item-4 {
+      grid-column: 5 / 7;
+      grid-row: 3 / 7;
+      transform: rotate(3deg);
+    }
+
+    /* FAMILY & EVENT DETAILS */
+    #family-details-section {
+      padding: 80px 8%;
+      background-color: var(--color-bg);
+      position: relative;
+      z-index: 10;
+    }
+
+    .family-details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .family-details-grid .sequence-text-card {
+      position: relative;
+      opacity: 1;
+      max-width: 100%;
       padding: 35px;
-      pointer-events: none;
+      pointer-events: auto;
     }
-    #sequence-text-1 {
-      left: 10%;
-      top: 30%;
+    
+    @media (max-width: 1024px) {
+      #hero-section {
+        padding: 120px 4% 60px 4%;
+      }
+      .hero-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+      .hero-text-pane {
+        align-items: center;
+        text-align: center;
+      }
+      .hero-collage-pane {
+        height: 420px;
+      }
     }
-    #sequence-text-2 {
-      right: 10%;
-      top: 30%;
-    }
-    #sequence-text-3 {
-      left: 50%;
-      top: 30%;
-      transform: translateX(-50%);
-      max-width: 600px;
-      text-align: center;
-    }
+
     @media (max-width: 768px) {
-      #sequence-text-1, #sequence-text-2, #sequence-text-3 {
-        left: 5% !important;
-        right: 5% !important;
-        top: 20% !important;
-        transform: none !important;
-        max-width: 90% !important;
-        width: 90% !important;
-        margin: 0 auto;
+      .family-details-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1384,39 +1469,62 @@
       </div>
     </header>
 
-    <!-- SCROLL SEQUENCE INTRO CONTAINER (Merged with Hero) -->
-    <div id="scroll-sequence-container" style="position: relative; height: 500vh; background-color: #050507;">
-      <div id="scroll-sequence-sticky" style="position: sticky; top: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-        <canvas id="sequence-canvas" style="width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.85; filter: saturate(0.95);"></canvas>
-        
-        <!-- Interactive Overlay Hero -->
-        <div id="sequence-hero-overlay" style="z-index: 2;">
+    <!-- NEW HERO SECTION WITH ASYMMETRICAL PHOTO COLLAGE -->
+    <div id="hero-section">
+      <div class="hero-content-wrapper">
+        <!-- Left Pane: Invite details -->
+        <div class="hero-text-pane">
           <div class="hero-eyebrow" id="heroEyebrow" style="margin-bottom: 24px;">YOU ARE CORDIALLY INVITED</div>
-          <h1 class="hero-title gradient-text" id="heroTitle" style="margin-bottom: 32px;">Amal & Kallu</h1>
-          <p class="hero-desc" id="heroDesc" style="margin-bottom: 48px;">To celebrate our union of marriage on Sunday, June 21, 2026. A wedding filled with love, tradition, and beautiful memories.</p>
+          <h1 class="hero-title gradient-text" id="heroTitle" style="margin-bottom: 32px; font-size: clamp(2.5rem, 5vw, 5rem); line-height: 1.1;">Amal & Kallu</h1>
+          <p class="hero-desc" id="heroDesc" style="margin-bottom: 48px; font-size: 1.1rem; max-width: 500px; color: var(--color-text-secondary); line-height: 1.7;">To celebrate our union of marriage on Sunday, June 21, 2026. A wedding filled with love, tradition, and beautiful memories.</p>
           <a href="#scratch-section" class="btn-premium" id="heroCtaText">Reveal the Date</a>
         </div>
+        
+        <!-- Right Pane: Photo Collage -->
+        <div class="hero-collage-pane">
+          <div class="collage-item c-item-1">
+            <img src="media/couple_portrait.jpg" alt="Amal and Kallu portrait">
+          </div>
+          <div class="collage-item c-item-2">
+            <img src="media/A_romantic_photorealistic_scene_of_202605280824.jpeg" alt="Amal and Kallu romantic gaze">
+          </div>
+          <div class="collage-item c-item-3">
+            <img src="media/couple_standing.jpg" alt="Amal and Kallu traditional standing">
+          </div>
+          <div class="collage-item c-item-4">
+            <img src="media/Classic_'save_the_date'_photoshoot_202605280818.jpeg" alt="Amal and Kallu save the date">
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <!-- Interactive Overlay Text Cards -->
-        <div id="sequence-text-1" class="glass-card sequence-text-card">
+    <!-- FAMILY & EVENT DETAILS SECTION (Static Grid) -->
+    <section id="family-details-section">
+      <div class="family-details-grid">
+        
+        <!-- Host Card -->
+        <div id="family-card-1" class="glass-card sequence-text-card">
           <p class="section-subtitle" style="color: var(--color-accent); font-size: 0.8rem; margin-bottom: 8px;">THE HOSTS</p>
           <h3 class="gradient-text" style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 12px; line-height: 1.3;">Mr. Chandrasekharan V. T & Mrs. Beena Chandrasekharan</h3>
           <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6;">Vellackal house, Veloor PO., Kottayam. Request the honour of your esteemed presence and blessings on the auspicious marriage of our son Amal.</p>
         </div>
         
-        <div id="sequence-text-2" class="glass-card sequence-text-card">
+        <!-- Bride Family Card -->
+        <div id="family-card-2" class="glass-card sequence-text-card">
           <p class="section-subtitle" style="color: var(--color-accent); font-size: 0.8rem; margin-bottom: 8px;">THE BRIDE'S FAMILY</p>
           <h3 class="gradient-text" style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 12px; line-height: 1.3;">D/o Mr. Suresh P. R & Mrs. Rejani Suresh</h3>
           <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6;">Vattamattom (H), Kollad PO., Kottayam. We request your presence to bless the couple as they begin their beautiful journey together.</p>
         </div>
 
-        <div id="sequence-text-3" class="glass-card sequence-text-card">
+        <!-- Muhurtham Card -->
+        <div id="family-card-3" class="glass-card sequence-text-card">
           <p class="section-subtitle" style="color: var(--color-accent); font-size: 0.8rem; margin-bottom: 8px;">THE MUHURTHAM</p>
           <h3 class="gradient-text" style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 12px; line-height: 1.3;">Sunday, June 21, 2026</h3>
           <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6;">Muhurtham between 11:58 AM and 12:21 PM. Reception at Mar Baselious Mar Gregorios Orthodox Church Hall, Thazhathangady, from 6:00 PM to 10:00 PM.</p>
         </div>
+
       </div>
-    </div>
+    </section>
 
     <!-- MOMENTS OF LOVE SECTION -->
     <section id="moments-love-section" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 40px; padding: 100px 8%; background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.03));">
@@ -2145,7 +2253,11 @@
     }
 
     function applySections() {
-      document.getElementById('sequence-hero-overlay').style.display = config.visibility.hero ? 'flex' : 'none';
+      const heroSection = document.getElementById('hero-section');
+      const familySection = document.getElementById('family-details-section');
+      if (heroSection) heroSection.style.display = config.visibility.hero ? 'flex' : 'none';
+      if (familySection) familySection.style.display = config.visibility.hero ? 'block' : 'none';
+      
       document.getElementById('scratch-section').style.display = config.visibility.scratch ? 'flex' : 'none';
       document.getElementById('countdown-section').style.display = config.visibility.countdown ? 'flex' : 'none';
       document.getElementById('about').style.display = config.visibility.about ? 'block' : 'none';
@@ -2388,11 +2500,17 @@
         startSynthesizer();
       }
       
-      // Staggered reveals for the merged Hero scroll sequence landing
-      gsap.from('#sequence-hero-overlay .hero-eyebrow', { opacity: 0, y: 30, duration: 1.2, delay: 0.5, ease: 'power4.out' });
-      gsap.from('#sequence-hero-overlay .hero-title', { opacity: 0, y: 40, duration: 1.5, delay: 0.7, ease: 'power4.out' });
-      gsap.from('#sequence-hero-overlay .hero-desc', { opacity: 0, y: 30, duration: 1.2, delay: 0.9, ease: 'power4.out' });
-      gsap.from('#sequence-hero-overlay .btn-premium', { opacity: 0, scale: 0.95, duration: 0.9, delay: 1.1, ease: 'back.out(1.5)' });
+      // Staggered reveals for the Hero section text
+      gsap.from('#hero-section .hero-eyebrow', { opacity: 0, y: 30, duration: 1.2, delay: 0.5, ease: 'power4.out' });
+      gsap.from('#hero-section .hero-desc', { opacity: 0, y: 30, duration: 1.2, delay: 0.9, ease: 'power4.out' });
+      gsap.from('#hero-section .btn-premium', { opacity: 0, scale: 0.95, duration: 0.9, delay: 1.1, ease: 'back.out(1.5)' });
+      
+      // Animate split title spans
+      const heroSpans = document.querySelectorAll('#hero-section .hero-title span');
+      gsap.to(heroSpans, { opacity: 1, y: 0, rotate: 0, filter: 'blur(0px)', duration: 0.8, delay: 0.6, stagger: 0.02, ease: 'power2.out' });
+
+      // Staggered fade and slide up for collage images
+      gsap.from('.collage-item', { opacity: 0, scale: 0.85, y: 50, duration: 1.2, delay: 0.8, stagger: 0.15, ease: 'power3.out' });
       
       // Staggered trigger for standard glass cards (excluding the scroll sequence texts)
       gsap.utils.toArray('.glass-card:not(.sequence-text-card)').forEach(card => {
@@ -3072,7 +3190,7 @@
 
     // Letter splitting helper to stagger characters dynamically on scroll
     function initSplitText() {
-      const targets = document.querySelectorAll('#sequence-hero-overlay .hero-title, #sequence-text-1 h3, #sequence-text-2 h3, #sequence-text-3 h3');
+      const targets = document.querySelectorAll('#hero-section .hero-title, #family-card-1 h3, #family-card-2 h3, #family-card-3 h3');
       targets.forEach(target => {
         const text = target.innerText;
         target.innerHTML = '';
@@ -3089,174 +3207,6 @@
           target.appendChild(span);
         });
       });
-    }
-
-    /* CANVAS SCROLL SEQUENCE ENGINE */
-    function initScrollSequence() {
-      const canvas = document.getElementById('sequence-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const container = document.getElementById('scroll-sequence-container');
-
-      const frameCount = 300;
-      const images = [];
-      const frameIndexObj = { frame: 1 };
-
-      // Helper to generate padded filename path targeting the frame directory
-      const getFramePath = (index) => {
-        const paddedIndex = index.toString().padStart(3, '0');
-        return `frame/ezgif-frame-${paddedIndex}.png`;
-      };
-
-      // Set canvas dimensions with Aspect Ratio Fit
-      function resizeCanvas() {
-        const rect = canvas.getBoundingClientRect();
-        const dpr = window.devicePixelRatio || 1;
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        ctx.scale(dpr, dpr);
-        renderFrame(frameIndexObj.frame);
-      }
-      function drawImageProp(context, img, x = 0, y = 0, w = context.canvas.width / (window.devicePixelRatio || 1), h = context.canvas.height / (window.devicePixelRatio || 1), offsetX = 0.5, offsetY = 0.5) {
-        const iw = img.width, ih = img.height;
-        const r = Math.max(w / iw, h / ih);
-        const cw = w / r;
-        const ch = h / r;
-        const cx = (iw - cw) * offsetX;
-        const cy = (ih - ch) * offsetY;
-        context.drawImage(img, cx, cy, cw, ch, x, y, w, h);
-      }
-
-      function renderFrame(index) {
-        if (index < 1 || index > frameCount) return;
-        const img = images[index];
-        if (img && img.complete) {
-          ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-          drawImageProp(ctx, img, 0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-        } else {
-          loadFrame(index, () => {
-            if (Math.round(frameIndexObj.frame) === index) {
-              const currentImg = images[index];
-              if (currentImg) {
-                ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-                drawImageProp(ctx, currentImg, 0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-              }
-            }
-          });
-        }
-      }
-
-      function loadFrame(index, callback) {
-        if (index < 1 || index > frameCount) return;
-        if (images[index]) {
-          if (images[index].complete && callback) callback();
-          return;
-        }
-
-        const img = new Image();
-        img.src = getFramePath(index);
-        images[index] = img;
-        img.onload = () => {
-          if (callback) callback();
-          preloadAdjacent(index);
-        };
-      }
-
-      function preloadAdjacent(index) {
-        const lookahead = 6;
-        for (let i = 1; i <= lookahead; i++) {
-          const next = index + i;
-          const prev = index - i;
-          if (next <= frameCount && !images[next]) {
-            images[next] = new Image();
-            images[next].src = getFramePath(next);
-          }
-          if (prev >= 1 && !images[prev]) {
-            images[prev] = new Image();
-            images[prev].src = getFramePath(prev);
-          }
-        }
-      }
-
-      // Preload initial frames (first frame, middle, end, and steps)
-      loadFrame(1, () => {
-        renderFrame(1);
-      });
-      
-      // Load key frames to make scrubbing feel fast initially
-      for (let i = 1; i <= frameCount; i += 12) {
-        loadFrame(i);
-      }
-
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
-
-      // GSAP ScrollTrigger to bind frames to scrollbar
-      gsap.to(frameIndexObj, {
-        frame: frameCount,
-        snap: "frame",
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.1,
-          onUpdate: () => {
-            const currentIdx = Math.round(frameIndexObj.frame);
-            renderFrame(currentIdx);
-            
-            // Sync overlays precisely with frame quarters
-            let activeCard = 0; // 0 = Hero
-            if (currentIdx > 75 && currentIdx <= 150) activeCard = 1; // 1 = Hosts
-            else if (currentIdx > 150 && currentIdx <= 225) activeCard = 2; // 2 = Bride
-            else if (currentIdx > 225) activeCard = 3; // 3 = Muhurtham
-            
-            updateOverlayCards(activeCard);
-          }
-        }
-      });
-
-      // Set initial states in GSAP to ensure clean overlay animations
-      gsap.set("#sequence-text-1", { opacity: 0, y: 60, pointerEvents: 'none' });
-      gsap.set("#sequence-text-2", { opacity: 0, y: 60, pointerEvents: 'none' });
-      gsap.set("#sequence-text-3", { opacity: 0, y: 60, xPercent: -50, pointerEvents: 'none' });
-      gsap.set("#sequence-text-1 h3 span, #sequence-text-2 h3 span, #sequence-text-3 h3 span", { opacity: 0, y: 20, rotate: 8, filter: 'blur(3px)' });
-
-      // Core controller to transition overlay cards smoothly when crossing frame boundaries
-      let lastActiveCard = -1;
-      function updateOverlayCards(activeIndex) {
-        if (activeIndex === lastActiveCard) return;
-        lastActiveCard = activeIndex;
-
-        const cards = [
-          { id: '#sequence-hero-overlay', spans: null },
-          { id: '#sequence-text-1', spans: '#sequence-text-1 h3 span' },
-          { id: '#sequence-text-2', spans: '#sequence-text-2 h3 span' },
-          { id: '#sequence-text-3', spans: '#sequence-text-3 h3 span' }
-        ];
-
-        cards.forEach((card, idx) => {
-          if (idx === activeIndex) {
-            // Fade in card and enable pointer events
-            gsap.to(card.id, { opacity: 1, y: 0, pointerEvents: 'auto', duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
-            if (card.id === '#sequence-hero-overlay') {
-              const heroSpans = document.querySelectorAll('#sequence-hero-overlay .hero-title span');
-              gsap.to(heroSpans, { opacity: 1, y: 0, rotate: 0, filter: 'blur(0px)', duration: 0.6, stagger: 0.02, ease: 'power2.out', overwrite: 'auto' });
-            } else if (card.spans) {
-              gsap.to(card.spans, { opacity: 1, y: 0, rotate: 0, filter: 'blur(0px)', duration: 0.5, stagger: 0.015, ease: 'power2.out', overwrite: 'auto' });
-            }
-          } else {
-            // Fade out card and disable pointer events to prevent blocking clicks
-            gsap.to(card.id, { opacity: 0, y: -40, pointerEvents: 'none', duration: 0.5, ease: 'power2.in', overwrite: 'auto' });
-            if (card.id === '#sequence-hero-overlay') {
-              const heroSpans = document.querySelectorAll('#sequence-hero-overlay .hero-title span');
-              gsap.to(heroSpans, { opacity: 0, y: 20, rotate: 8, filter: 'blur(3px)', duration: 0.4, ease: 'power2.in', overwrite: 'auto' });
-            } else if (card.spans) {
-              gsap.to(card.spans, { opacity: 0, y: 20, rotate: 8, filter: 'blur(3px)', duration: 0.4, ease: 'power2.in', overwrite: 'auto' });
-            }
-          }
-        });
-      }
     }
 
     /* CUSTOM GSAP & MOUSE INTERACTION SYSTEM */
@@ -3335,7 +3285,6 @@
     animateParticles();
     renderPage();
     initCountdown();
-    initScrollSequence();
     initAnimations();
   </script>
 </body>
