@@ -14,7 +14,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/motion@10.16.2/dist/motion.js"></script>
+
   <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
   
   <style>
@@ -2422,8 +2422,8 @@
       const heroSpans = document.querySelectorAll('#sequence-hero-overlay .hero-title span');
       gsap.to(heroSpans, { opacity: 1, y: 0, rotate: 0, filter: 'blur(0px)', duration: 0.8, delay: 0.6, stagger: 0.02, ease: 'power2.out' });
 
-      // Staggered trigger for standard glass cards (excluding the scroll sequence texts)
-      gsap.utils.toArray('.glass-card:not(.sequence-text-card)').forEach(card => {
+      // Staggered trigger for standard glass cards, feature cards, and timeline content (excluding sequence texts)
+      gsap.utils.toArray('.glass-card:not(.sequence-text-card), .feature-card, .timeline-content').forEach(card => {
         gsap.from(card, {
           scrollTrigger: {
             trigger: card,
@@ -2436,6 +2436,11 @@
           ease: "power3.out"
         });
       });
+
+      // Recalculate ScrollTrigger positions after content reveals and entrance transition completes
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 1500);
     }
 
     /* SCRATCH CARD MECHANICS */
@@ -3133,7 +3138,7 @@
       // Helper to generate padded filename path targeting the frame directory
       const getFramePath = (index) => {
         const paddedIndex = index.toString().padStart(3, '0');
-        return `frame/ezgif-frame-${paddedIndex}.png`;
+        return `frame/ezgif-frame-${paddedIndex}.webp`;
       };
 
       // Set canvas dimensions with Aspect Ratio Fit
@@ -3339,20 +3344,6 @@
             duration: 0.6,
             ease: 'power2.out'
           });
-        });
-      }
-
-      // 3. Motion One (Framer Motion equivalent) spring reveals for cards
-      if (window.motion) {
-        motion.inView(".glass-card, .feature-card, .timeline-content", (element) => {
-          motion.animate(
-            element.target,
-            { opacity: [0, 1], y: [60, 0] },
-            { 
-              duration: 0.9, 
-              easing: motion.spring({ stiffness: 100, damping: 22 })
-            }
-          );
         });
       }
     }

@@ -13,7 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/motion@10.16.2/dist/motion.js"></script>
+  
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
         tailwind.config = { theme: { extend: { colors: { purple: { deep: '#0a1012', DEFAULT: '#13b5b1', light: '#8ab4f8', soft: '#e6f7f6', glow: '#13b5b1' }, gold: { light: '#e8c96e', DEFAULT: '#c9a84c', dark: '#9a7a2e' }, cream: '#e6f7f6', deep: '#050a0a', muted: 'rgba(230, 247, 246, 0.7)' }, fontFamily: { cinzel: ['Cinzel', 'serif'], cormorant: ['Cormorant Garamond', 'serif'], vibez: ['Great Vibes', 'cursive'], body: ['EB Garamond', 'Georgia', 'serif'] } } } }
@@ -1618,34 +1618,16 @@
 
         // Reveal elements
         function initReveals() {
-            if (window.motion) {
-                document.querySelectorAll('.reveal-el').forEach(el => {
-                    if (el.dataset.revealed) return;
-                    el.dataset.revealed = '1';
-                    motion.inView(el, (element) => {
-                        motion.animate(
-                            element.target,
-                            { opacity: 1, y: 0 },
-                            { 
-                                duration: 0.9, 
-                                easing: motion.spring({ stiffness: 100, damping: 20 }) 
-                            }
-                        );
-                    });
+            document.querySelectorAll('.reveal-el').forEach(el => {
+                if (el.dataset.revealed) return;
+                el.dataset.revealed = '1';
+                gsap.set(el, { opacity: 0, y: 35 });
+                gsap.to(el, {
+                    opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+                    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
                 });
-            } else {
-                document.querySelectorAll('.reveal-el').forEach(el => {
-                    if (el.dataset.revealed) return;
-                    el.dataset.revealed = '1';
-                    gsap.set(el, { opacity: 0, y: 35 });
-                    gsap.to(el, {
-                        opacity: 1, y: 0, duration: .9, ease: 'power3.out',
-                        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
-                    });
-                });
-            }
+            });
         }
-        initReveals();
 
         /* ═══════════════════════════════
            DOOR REVEAL
@@ -1674,7 +1656,10 @@
                 const r = document.getElementById('doorStage').getBoundingClientRect();
                 for (let i = 0; i < 45; i++) setTimeout(() => createSparkle(r.width / 2 + (Math.random() - .5) * r.width * .8, r.height / 2 + (Math.random() - .5) * r.height * .8), i * 50);
             }, 900);
-            gsap.fromTo('#doorContent', { scale: .9 }, { scale: 1, duration: .8, delay: 1.2, ease: 'back.out(1.7)' });
+            gsap.fromTo('#doorContent', { scale: .9 }, { scale: 1, duration: .8, delay: 1.2, ease: 'back.out(1.7)', onComplete: () => {
+                initReveals();
+                ScrollTrigger.refresh();
+            } });
         }
         document.getElementById('openDoorBtn').addEventListener('click', openDoor);
         setTimeout(() => { if (!doorOpened) openDoor(); }, 5500);
